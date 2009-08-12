@@ -1,0 +1,5 @@
+#Wed Aug 12 00:34:28 IST 2009
+eclipse.preferences.version=1
+pkg_use_project=true
+preverify_config_location=jad
+preverify_config_value=CLDC-1.0
