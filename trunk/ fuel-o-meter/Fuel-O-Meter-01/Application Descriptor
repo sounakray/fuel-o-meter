@@ -1,6 +1,7 @@
-MIDlet-Version: 1.0.0
-MIDlet-Vendor: MIDlet Suite Vendor
+MIDlet-1: Fuel_O_Meter,,com.sounakray.fuelometer.midlet.Fuel_O_Meter
 MIDlet-Jar-URL: Fuel-O-Meter-01.jar
+MIDlet-Name: Fuel-O-Meter-01 MIDlet Suite
+MIDlet-Vendor: MIDlet Suite Vendor
+MIDlet-Version: 1.0.0
 MicroEdition-Configuration: CLDC-1.1
 MicroEdition-Profile: MIDP-2.0
-MIDlet-Name: Fuel-O-Meter-01 MIDlet Suite
