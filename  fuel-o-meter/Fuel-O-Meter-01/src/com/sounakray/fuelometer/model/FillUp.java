@@ -11,9 +11,9 @@ import java.util.Date;
  */
 public final class FillUp {
 	private Date date;
-	private float odometer;
-	private float volume;
-	private float rate;
+	private int odometer;
+	private int volume;
+	private int rate;
 	/**
 	 * @return the date
 	 */
@@ -29,37 +29,37 @@ public final class FillUp {
 	/**
 	 * @return the odometer
 	 */
-	public final float getOdometer() {
+	public final int getOdometer() {
 		return odometer;
 	}
 	/**
 	 * @param odometer the odometer to set
 	 */
-	public final void setOdometer(float odometer) {
+	public final void setOdometer(int odometer) {
 		this.odometer = odometer;
 	}
 	/**
 	 * @return the volume
 	 */
-	public final float getVolume() {
+	public final int getVolume() {
 		return volume;
 	}
 	/**
 	 * @param volume the volume to set
 	 */
-	public final void setVolume(float volume) {
+	public final void setVolume(int volume) {
 		this.volume = volume;
 	}
 	/**
 	 * @return the rate
 	 */
-	public final float getRate() {
+	public final int getRate() {
 		return rate;
 	}
 	/**
 	 * @param rate the rate to set
 	 */
-	public final void setRate(float rate) {
+	public final void setRate(int rate) {
 		this.rate = rate;
 	}
 	
