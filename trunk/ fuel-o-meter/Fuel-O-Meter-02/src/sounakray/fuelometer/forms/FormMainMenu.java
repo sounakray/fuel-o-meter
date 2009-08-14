@@ -10,7 +10,7 @@ import sounakray.fuelometer.midlet.FuelOMeter;
 /**
  * @author Sounak Ray
  */
-public final class FormMainMenu extends AbstractForm {
+public final class FormMainMenu extends AbstractFuelOMeterScreen {
 	// TODO: Make Singleton!
 
 	public final Command cmdExit = new Command("Exit", Command.EXIT, 0);
@@ -38,6 +38,24 @@ public final class FormMainMenu extends AbstractForm {
 	 */
 	public void executeCommand(final Command command){
 		if(command == List.SELECT_COMMAND){
+			switch (lstMainMenu.getSelectedIndex()) {
+			case 0:
+				midlet.setDisplay(midlet.frmAddRec);
+				break;
+			case 1:
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4:
+				break;
+			case 5:
+				break;
+			case 6:
+				break;
+			default:
+			}
 
 		}else if(command == cmdAddRec){
 			midlet.setDisplay(midlet.frmAddRec);

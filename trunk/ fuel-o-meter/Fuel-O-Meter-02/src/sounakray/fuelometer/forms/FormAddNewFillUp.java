@@ -14,7 +14,7 @@ import sounakray.fuelometer.midlet.FuelOMeter;
 /**
  * @author Sounak Ray
  */
-public final class FormAddNewFillUp extends AbstractForm {
+public final class FormAddNewFillUp extends AbstractFuelOMeterScreen {
 	// TODO: Make Singleton!
 
 	final Form form;
