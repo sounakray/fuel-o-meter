@@ -4,28 +4,31 @@
 package sounakray.fuelometer.forms;
 
 import javax.microedition.lcdui.Command;
-import javax.microedition.lcdui.Form;
-
+import javax.microedition.lcdui.Displayable;
 import sounakray.fuelometer.midlet.FuelOMeter;
 
 /**
  * @author Sounak Ray
- * 
  */
-public abstract class AbstractForm extends Form {
+public abstract class AbstractForm {
 	protected final FuelOMeter midlet;
+	protected final Displayable screen;
 
 	/**
 	 * @param arg0
 	 */
-	public AbstractForm(final String name, final FuelOMeter midlet) {
-		super(name);
+	public AbstractForm(final Displayable screen, final FuelOMeter midlet) {
+		this.screen = screen;
 		this.midlet = midlet;
-		setCommandListener(midlet);
+		screen.setCommandListener(midlet);
 	}
 
 	/**
 	 * @param c
 	 */
 	public abstract void executeCommand(final Command c);
+
+	public final Displayable getScreen(){
+		return screen;
+	}
 }

@@ -4,42 +4,44 @@
 package sounakray.fuelometer.forms;
 
 import javax.microedition.lcdui.Command;
-
+import javax.microedition.lcdui.List;
 import sounakray.fuelometer.midlet.FuelOMeter;
 
 /**
  * @author Sounak Ray
- * 
  */
 public final class FormMainMenu extends AbstractForm {
 	// TODO: Make Singleton!
 
-	public  final Command cmdExit = new Command("Exit", Command.EXIT, 0);
-	public final Command cmdAddRec = new Command("Add", "New Fillup Record",
-			Command.SCREEN, 1);
+	public final Command cmdExit = new Command("Exit", Command.EXIT, 0);
+	public final Command cmdAddRec = new Command("Add", "New Fillup Record", Command.SCREEN, 1);
+	final List lstMainMenu;
 
 	public FormMainMenu(final FuelOMeter midlet) {
-		super("Fuel-O-Meter 01", midlet);
-		append("Main Menu Screen!");
+		super(new List("Main Menu: ", List.IMPLICIT), midlet);
 
-		addCommand(cmdExit);
-		addCommand(cmdAddRec);
-		
-//		midlet.cmdLeft = cmdExit;
-//		midlet.cmdRight = cmdAddRec;
+		lstMainMenu = (List) screen;
+		lstMainMenu.append("1. New Fill-up", null);
+		lstMainMenu.append("2. Show Data", null);
+		lstMainMenu.append("3. Statistics", null);
+		lstMainMenu.append("4. Graph", null);
+		lstMainMenu.append("5. Setup", null);
+		lstMainMenu.append("6. About", null);
+
+		screen.addCommand(cmdExit);
+		screen.addCommand(cmdAddRec);
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.sounakray.fuelometer.forms.AbstractForm#handleAction(javax.microedition
-	 * .lcdui.Command)
+	 * @see com.sounakray.fuelometer.forms.AbstractForm#handleAction(javax.microedition .lcdui.Command)
 	 */
-	public void executeCommand(final Command c) {
-		if (c == cmdAddRec) {
+	public void executeCommand(final Command command){
+		if(command == List.SELECT_COMMAND){
+
+		}else if(command == cmdAddRec){
 			midlet.setDisplay(midlet.frmAddRec);
-		} else if (c == cmdExit) {
+		}else if(command == cmdExit){
 			midlet.exitMIDlet();
 		}
 	}
