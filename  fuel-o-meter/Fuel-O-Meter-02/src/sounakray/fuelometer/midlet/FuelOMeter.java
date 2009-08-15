@@ -7,24 +7,27 @@ import javax.microedition.lcdui.Displayable;
 import javax.microedition.midlet.MIDlet;
 import javax.microedition.midlet.MIDletStateChangeException;
 import sounakray.fuelometer.forms.AbstractFuelOMeterScreen;
+import sounakray.fuelometer.forms.FormAbout;
 import sounakray.fuelometer.forms.FormAddNewFillUp;
-import sounakray.fuelometer.forms.FormMainMenu;
+import sounakray.fuelometer.forms.ListMainMenu;
 
 public final class FuelOMeter extends MIDlet implements CommandListener {
 	private Display display;
 	private AbstractFuelOMeterScreen currentForm;
 
-	public final AbstractFuelOMeterScreen frmMainMenu;
-	public final AbstractFuelOMeterScreen frmAddRec;
+	public final AbstractFuelOMeterScreen scrMainMenu;
+	public final AbstractFuelOMeterScreen scrAddRec;
+	public final AbstractFuelOMeterScreen scrAbout;
 
 	public FuelOMeter() {
 		display = Display.getDisplay(this);
-		frmMainMenu = new FormMainMenu(this);
-		frmAddRec = new FormAddNewFillUp(this);
+		scrMainMenu = new ListMainMenu(this);
+		scrAddRec = new FormAddNewFillUp(this);
+		scrAbout = new FormAbout(this);
 	}
 
 	protected void startApp() throws MIDletStateChangeException{
-		setDisplay(frmMainMenu);
+		setDisplay(scrMainMenu);
 	}
 
 	protected void pauseApp(){}

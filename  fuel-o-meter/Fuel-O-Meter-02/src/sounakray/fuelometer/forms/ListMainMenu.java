@@ -10,14 +10,13 @@ import sounakray.fuelometer.midlet.FuelOMeter;
 /**
  * @author Sounak Ray
  */
-public final class FormMainMenu extends AbstractFuelOMeterScreen {
+public final class ListMainMenu extends AbstractFuelOMeterScreen {
 	// TODO: Make Singleton!
 
-	public final Command cmdExit = new Command("Exit", Command.EXIT, 0);
-	public final Command cmdAddRec = new Command("Add", "New Fillup Record", Command.SCREEN, 1);
-	final List lstMainMenu;
+	private final Command cmdExit = new Command("Exit", Command.EXIT, 0);
+	private final List lstMainMenu;
 
-	public FormMainMenu(final FuelOMeter midlet) {
+	public ListMainMenu(final FuelOMeter midlet) {
 		super(new List("Main Menu: ", List.IMPLICIT), midlet);
 
 		lstMainMenu = (List) screen;
@@ -29,7 +28,6 @@ public final class FormMainMenu extends AbstractFuelOMeterScreen {
 		lstMainMenu.append("6. About", null);
 
 		screen.addCommand(cmdExit);
-		screen.addCommand(cmdAddRec);
 	}
 
 	/*
@@ -40,7 +38,7 @@ public final class FormMainMenu extends AbstractFuelOMeterScreen {
 		if(command == List.SELECT_COMMAND){
 			switch (lstMainMenu.getSelectedIndex()) {
 			case 0:
-				midlet.setDisplay(midlet.frmAddRec);
+				midlet.setDisplay(midlet.scrAddRec);
 				break;
 			case 1:
 				break;
@@ -51,14 +49,10 @@ public final class FormMainMenu extends AbstractFuelOMeterScreen {
 			case 4:
 				break;
 			case 5:
-				break;
-			case 6:
+				midlet.setDisplay(midlet.scrAbout);
 				break;
 			default:
 			}
-
-		}else if(command == cmdAddRec){
-			midlet.setDisplay(midlet.frmAddRec);
 		}else if(command == cmdExit){
 			midlet.exitMIDlet();
 		}
