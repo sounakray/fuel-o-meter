@@ -46,7 +46,7 @@ public class FormViewData extends AbstractFuelOMeterScreen {
 		lstMainMenu.deleteAll();
 		final FillUp[] allRecords = midlet.manager.getAllRecords();
 		for(int i = 0; i < allRecords.length; i++){
-			lstMainMenu.append(new String(allRecords[i].toByteArray()), null);
+			lstMainMenu.append(allRecords[i].toString(), null);
 		}
 	}
 }

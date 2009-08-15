@@ -8,6 +8,7 @@
  */
 package sounakray.fuelometer.model;
 
+import java.util.Calendar;
 import java.util.Date;
 import net.jscience.util.MathFP;
 
@@ -69,6 +70,14 @@ public final class FillUp {
 	 */
 	public byte[] toByteArray(){
 		return (date.getTime() + DELIMITER + odometer + DELIMITER + volume + DELIMITER + unitPrice).getBytes();
+	}
+
+	public String toString(){
+		Calendar c = Calendar.getInstance();
+		c.setTime(date);
+		return (c.get(Calendar.MONTH) + 1) + "/" + c.get(Calendar.DATE) + "/" + c.get(Calendar.YEAR) + " :  "
+				+ MathFP.toString(odometer, 1) + "\n" + MathFP.toString(volume, 2) + " @ "
+				+ MathFP.toString(unitPrice, 2);
 	}
 
 	/**
