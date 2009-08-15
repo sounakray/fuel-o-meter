@@ -8,6 +8,7 @@
  */
 package sounakray.fuelometer.DAO;
 
+import javax.microedition.rms.RecordComparator;
 import javax.microedition.rms.RecordEnumeration;
 import javax.microedition.rms.RecordStore;
 import javax.microedition.rms.RecordStoreException;
@@ -65,7 +66,12 @@ public class FuelOMeterRecordStoreDAOImpl implements FuelOMeterDAO {
 		FillUp[] fillUpList;
 		int i = 0;
 		try{
-			final RecordEnumeration recordsEnumeration = rs.enumerateRecords(null, null, false);
+			final RecordEnumeration recordsEnumeration = rs.enumerateRecords(null, new RecordComparator() {
+				public int compare(final byte[] rec1, final byte[] rec2){
+					final int result = new String(rec1).compareTo(new String(rec2));
+					return result == 0 ? EQUIVALENT : (result < 0 ? PRECEDES : FOLLOWS);
+				}
+			}, false);
 			fillUpList = new FillUp[(recordsEnumeration.numRecords())];
 			while (recordsEnumeration.hasNextElement()){
 				fillUpList[i++] = new FillUp(recordsEnumeration.nextRecord());
@@ -81,7 +87,7 @@ public class FuelOMeterRecordStoreDAOImpl implements FuelOMeterDAO {
 	 * @see sounakray.fuelometer.DAO.FuelOMeterDAO#saveFillUp(sounakray.fuelometer.model.FillUp)
 	 * @author Sounak Ray
 	 */
-	public boolean saveFillUp(FillUp fillUp){
+	public boolean saveFillUp(final FillUp fillUp){
 		boolean isSuccessful = true;
 		final byte[] record = fillUp.toByteArray();
 		try{
