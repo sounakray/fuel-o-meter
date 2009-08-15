@@ -49,7 +49,7 @@ public final class FormAddNewFillUp extends AbstractFuelOMeterScreen {
 	 */
 	public void executeCommand(final Command c){
 		if(c == cmdMainMenu){
-			midlet.setDisplay(midlet.frmMainMenu);
+			midlet.setDisplay(midlet.scrMainMenu);
 		}else if(c == cmdSaveRec){
 			// Save record...
 		}
