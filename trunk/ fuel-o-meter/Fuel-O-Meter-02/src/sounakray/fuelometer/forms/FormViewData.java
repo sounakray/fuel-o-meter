@@ -1,5 +1,5 @@
 /**
- * FormAbout.java
+ * FormViewData.java
  * Fuel-O-Meter-02
  * @version %I%, %G%
  * Date Aug 15, 2009
@@ -9,38 +9,29 @@
 package sounakray.fuelometer.forms;
 
 import javax.microedition.lcdui.Command;
-import javax.microedition.lcdui.Form;
+import javax.microedition.lcdui.List;
 import sounakray.fuelometer.midlet.FuelOMeter;
+import sounakray.fuelometer.model.FillUp;
 
 /**
  * @author Sounak Ray
  */
-public final class FormAbout extends AbstractFuelOMeterScreen {
+public class FormViewData extends AbstractFuelOMeterScreen {
 	// TODO: Make Singleton!
-
-	final Form form;
 	private final Command cmdMainMenu = new Command("Back", "Main Menu", Command.BACK, 0);
-	private final String strAboutText;
 
-	public FormAbout(final FuelOMeter midlet) {
-		super(new Form("About Fuel-O-Meter"), midlet);
+	public FormViewData(final FuelOMeter midlet) {
+		super(new List("All Fill-ups ", List.EXCLUSIVE), midlet);
 
-		strAboutText =
-			" \t This application has been developed as a part of my hobby programming, and is not to be "
-					+ "distributed commercially. It is made available without any warranty or guarantee, "
-					+ "and should be used at user's own risk.";
-
-		form = (Form) screen;
-		form.append(strAboutText);
-		form.addCommand(cmdMainMenu);
+		screen.addCommand(cmdMainMenu);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * @see com.sounakray.fuelometer.forms.AbstractForm#handleAction(javax.microedition .lcdui.Command)
 	 */
-	public void executeCommand(final Command c){
-		if(c == cmdMainMenu){
+	public void executeCommand(final Command command){
+		if(command == cmdMainMenu){
 			midlet.setDisplay(midlet.scrMainMenu, null);
 		}
 	}
@@ -50,5 +41,12 @@ public final class FormAbout extends AbstractFuelOMeterScreen {
 	 * @see sounakray.fuelometer.forms.AbstractFuelOMeterScreen#refreshScreen()
 	 * @author Sounak Ray
 	 */
-	public void refreshScreen(){}
+	public void refreshScreen(){
+		final List lstMainMenu = (List) screen;
+		lstMainMenu.deleteAll();
+		final FillUp[] allRecords = midlet.manager.getAllRecords();
+		for(int i = 0; i < allRecords.length; i++){
+			lstMainMenu.append(new String(allRecords[i].toByteArray()), null);
+		}
+	}
 }

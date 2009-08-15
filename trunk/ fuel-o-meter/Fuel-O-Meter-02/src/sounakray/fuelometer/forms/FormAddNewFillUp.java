@@ -4,7 +4,8 @@
 package sounakray.fuelometer.forms;
 
 import java.util.Date;
-import java.util.TimeZone;
+import javax.microedition.lcdui.Alert;
+import javax.microedition.lcdui.AlertType;
 import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.DateField;
 import javax.microedition.lcdui.Form;
@@ -28,7 +29,7 @@ public final class FormAddNewFillUp extends AbstractFuelOMeterScreen {
 		form = (Form) screen;
 		form.append("Fillup Details");
 
-		dtfFillupDate = new DateField("Fillup Date: ", DateField.DATE, TimeZone.getDefault());
+		dtfFillupDate = new DateField("Fillup Date: ", DateField.DATE);
 		dtfFillupDate.setDate(new Date());
 		txtOdometer = new TextField("Odometer Reading: ", "0.0", 7, TextField.DECIMAL);
 		txtVolume = new TextField("Fillup Volume: ", "0.0", 5, TextField.DECIMAL);
@@ -49,9 +50,22 @@ public final class FormAddNewFillUp extends AbstractFuelOMeterScreen {
 	 */
 	public void executeCommand(final Command c){
 		if(c == cmdMainMenu){
-			midlet.setDisplay(midlet.scrMainMenu);
+			midlet.setDisplay(midlet.scrMainMenu, null);
 		}else if(c == cmdSaveRec){
-			// Save record...
+			final Alert alert =
+				(midlet.manager.saveRecord(dtfFillupDate.getDate(), txtOdometer.getString(), txtVolume.getString(),
+					txtRate.getString())) ? new Alert("Saved", "Fill-up data saved successfully!", null, AlertType.INFO) : new Alert(
+					"Error!!!", "Fill-up data could not be saved successfully!", null, AlertType.ERROR);
+			midlet.setDisplay(midlet.scrMainMenu, alert);
 		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see sounakray.fuelometer.forms.AbstractFuelOMeterScreen#refreshScreen()
+	 * @author Sounak Ray
+	 */
+	public void refreshScreen(){
+		dtfFillupDate.setDate(new Date());
 	}
 }
