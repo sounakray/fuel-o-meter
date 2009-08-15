@@ -38,9 +38,10 @@ public final class ListMainMenu extends AbstractFuelOMeterScreen {
 		if(command == List.SELECT_COMMAND){
 			switch (lstMainMenu.getSelectedIndex()) {
 			case 0:
-				midlet.setDisplay(midlet.scrAddRec);
+				midlet.setDisplay(midlet.scrAddRec, null);
 				break;
 			case 1:
+				midlet.setDisplay(midlet.scrViewData, null);
 				break;
 			case 2:
 				break;
@@ -49,7 +50,7 @@ public final class ListMainMenu extends AbstractFuelOMeterScreen {
 			case 4:
 				break;
 			case 5:
-				midlet.setDisplay(midlet.scrAbout);
+				midlet.setDisplay(midlet.scrAbout, null);
 				break;
 			default:
 			}
@@ -57,4 +58,11 @@ public final class ListMainMenu extends AbstractFuelOMeterScreen {
 			midlet.exitMIDlet();
 		}
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see sounakray.fuelometer.forms.AbstractFuelOMeterScreen#refreshScreen()
+	 * @author Sounak Ray
+	 */
+	public void refreshScreen(){}
 }

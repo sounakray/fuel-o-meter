@@ -24,9 +24,14 @@ public abstract class AbstractFuelOMeterScreen {
 	}
 
 	/**
-	 * @param c
+	 * Method Description:
+	 * @param command
+	 * @author Sounak Ray
+	 * @since Aug 16, 2009
 	 */
-	public abstract void executeCommand(final Command c);
+	public abstract void executeCommand(final Command command);
+
+	public abstract void refreshScreen();
 
 	public final Displayable getScreen(){
 		return screen;
