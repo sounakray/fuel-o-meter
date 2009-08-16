@@ -35,6 +35,7 @@ public final class ListMainMenu extends AbstractFuelOMeterScreen {
 	 * @see com.sounakray.fuelometer.forms.AbstractForm#handleAction(javax.microedition .lcdui.Command)
 	 */
 	public void executeCommand(final Command command){
+		// TODO shift all references to all the screens to this class as this controls navigation to all the screens.
 		if(command == List.SELECT_COMMAND){
 			switch (lstMainMenu.getSelectedIndex()) {
 			case 0:
@@ -44,6 +45,7 @@ public final class ListMainMenu extends AbstractFuelOMeterScreen {
 				midlet.setDisplay(midlet.scrViewData, null);
 				break;
 			case 2:
+				midlet.setDisplay(midlet.scrViewStats, null);
 				break;
 			case 3:
 				break;

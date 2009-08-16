@@ -11,6 +11,7 @@ import sounakray.fuelometer.forms.AbstractFuelOMeterScreen;
 import sounakray.fuelometer.forms.FormAbout;
 import sounakray.fuelometer.forms.FormAddNewFillUp;
 import sounakray.fuelometer.forms.FormViewData;
+import sounakray.fuelometer.forms.FormViewStatistics;
 import sounakray.fuelometer.forms.ListMainMenu;
 import sounakray.fuelometer.manager.FuelOMeterManager;
 
@@ -23,6 +24,7 @@ public final class FuelOMeter extends MIDlet implements CommandListener {
 	public final AbstractFuelOMeterScreen scrAddRec;
 	public final AbstractFuelOMeterScreen scrAbout;
 	public final AbstractFuelOMeterScreen scrViewData;
+	public final AbstractFuelOMeterScreen scrViewStats;
 
 	public FuelOMeter() {
 		display = Display.getDisplay(this);
@@ -31,6 +33,7 @@ public final class FuelOMeter extends MIDlet implements CommandListener {
 		scrMainMenu = new ListMainMenu(this);
 		scrAddRec = new FormAddNewFillUp(this);
 		scrViewData = new FormViewData(this);
+		scrViewStats = new FormViewStatistics(this);
 		scrAbout = new FormAbout(this);
 	}
 

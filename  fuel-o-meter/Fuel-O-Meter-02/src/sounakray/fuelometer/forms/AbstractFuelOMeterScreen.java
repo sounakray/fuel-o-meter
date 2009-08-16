@@ -18,6 +18,7 @@ public abstract class AbstractFuelOMeterScreen {
 	 * @param arg0
 	 */
 	public AbstractFuelOMeterScreen(final Displayable screen, final FuelOMeter midlet) {
+		screen.setTitle(screen.getTitle() + " :Fuel-O-Meter");
 		this.screen = screen;
 		this.midlet = midlet;
 		screen.setCommandListener(midlet);

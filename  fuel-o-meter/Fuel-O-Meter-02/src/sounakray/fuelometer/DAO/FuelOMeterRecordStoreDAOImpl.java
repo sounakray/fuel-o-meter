@@ -17,7 +17,7 @@ import sounakray.fuelometer.model.FillUp;
 /**
  * @author Sounak Ray
  */
-public class FuelOMeterRecordStoreDAOImpl implements FuelOMeterDAO {
+public final class FuelOMeterRecordStoreDAOImpl implements FuelOMeterDAO {
 	private static final String RECORDSET_NAME = "RecordSet_FuelOMeter";
 	private static RecordStore rs;
 
