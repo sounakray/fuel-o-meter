@@ -43,7 +43,7 @@ public class FormViewStatistics extends AbstractFuelOMeterScreen {
 	 * @see sounakray.fuelometer.forms.AbstractFuelOMeterScreen#refreshScreen()
 	 * @author Sounak Ray
 	 */
-	public void refreshScreen(){
+	public void loadScreen(){
 		final Form frmStats = (Form) screen;
 		frmStats.deleteAll();
 
@@ -55,5 +55,15 @@ public class FormViewStatistics extends AbstractFuelOMeterScreen {
 		frmStats.append(txtStartDate);
 		frmStats.append(txtEndDate);
 		frmStats.append(txtAverageMileage);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see sounakray.fuelometer.forms.AbstractFuelOMeterScreen#unloadScreen()
+	 * @author Sounak Ray
+	 */
+	public void unloadScreen(){
+	// TODO Auto-generated method stub
+
 	}
 }

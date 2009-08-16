@@ -47,8 +47,18 @@ public final class FormAbout extends AbstractFuelOMeterScreen {
 
 	/*
 	 * (non-Javadoc)
-	 * @see sounakray.fuelometer.forms.AbstractFuelOMeterScreen#refreshScreen()
+	 * @see sounakray.fuelometer.forms.AbstractFuelOMeterScreen#loadScreen()
 	 * @author Sounak Ray
 	 */
-	public void refreshScreen(){}
+	public void loadScreen(){}
+
+	/*
+	 * (non-Javadoc)
+	 * @see sounakray.fuelometer.forms.AbstractFuelOMeterScreen#unloadScreen()
+	 * @author Sounak Ray
+	 */
+	public void unloadScreen(){
+	// TODO Auto-generated method stub
+
+	}
 }
