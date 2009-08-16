@@ -41,12 +41,22 @@ public class FormViewData extends AbstractFuelOMeterScreen {
 	 * @see sounakray.fuelometer.forms.AbstractFuelOMeterScreen#refreshScreen()
 	 * @author Sounak Ray
 	 */
-	public void refreshScreen(){
+	public void loadScreen(){
 		final List lstMainMenu = (List) screen;
 		lstMainMenu.deleteAll();
 		final FillUp[] allRecords = midlet.manager.getAllRecords();
 		for(int i = 0; i < allRecords.length; i++){
 			lstMainMenu.append(allRecords[i].toString(), null);
 		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see sounakray.fuelometer.forms.AbstractFuelOMeterScreen#unloadScreen()
+	 * @author Sounak Ray
+	 */
+	public void unloadScreen(){
+	// TODO Auto-generated method stub
+
 	}
 }
