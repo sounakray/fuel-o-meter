@@ -11,8 +11,8 @@ package sounakray.fuelometer.manager;
 import java.util.Calendar;
 import java.util.Date;
 import net.jscience.util.MathFP;
+import sounakray.fuelometer.DAO.CachedRecordStoreDAOImpl;
 import sounakray.fuelometer.DAO.FuelOMeterDAO;
-import sounakray.fuelometer.DAO.FuelOMeterRecordStoreDAOImpl;
 import sounakray.fuelometer.model.FillUp;
 import sounakray.fuelometer.model.StatisticsData;
 
@@ -20,14 +20,12 @@ import sounakray.fuelometer.model.StatisticsData;
  * @author Sounak Ray
  */
 public final class FuelOMeterManager {
-	final FuelOMeterDAO dao = new FuelOMeterRecordStoreDAOImpl();
+	final FuelOMeterDAO dao = new CachedRecordStoreDAOImpl();
 
 	public boolean saveRecord(final Date date, final String odometer, final String volume, final String unitPrice){
 		boolean isSuccessful = true;
 		try{
-			dao.openDataStore();
 			dao.saveFillUp(new FillUp(date, odometer, volume, unitPrice));
-			dao.closeDataStore();
 		}catch(final Exception e){
 			isSuccessful = false;
 		}
@@ -35,9 +33,7 @@ public final class FuelOMeterManager {
 	}
 
 	public FillUp[] getAllRecords(){
-		dao.openDataStore();
-		final FillUp[] records = dao.getFillUpList();
-		dao.closeDataStore();
+		final FillUp[] records = dao.getAllFillUpList();
 		return records;
 	}
 
