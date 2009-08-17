@@ -22,18 +22,7 @@ public class FormViewData extends AbstractFuelOMeterScreen {
 
 	public FormViewData(final FuelOMeter midlet) {
 		super(new List("All Fill-ups ", List.EXCLUSIVE), midlet);
-
 		screen.addCommand(cmdMainMenu);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see com.sounakray.fuelometer.forms.AbstractForm#handleAction(javax.microedition .lcdui.Command)
-	 */
-	public void executeCommand(final Command command){
-		if(command == cmdMainMenu){
-			midlet.setDisplay(midlet.scrMainMenu, null);
-		}
 	}
 
 	/*
@@ -43,7 +32,6 @@ public class FormViewData extends AbstractFuelOMeterScreen {
 	 */
 	public void loadScreen(){
 		final List lstMainMenu = (List) screen;
-		lstMainMenu.deleteAll();
 		final FillUp[] allRecords = midlet.manager.getAllRecords();
 		for(int i = 0; i < allRecords.length; i++){
 			lstMainMenu.append(allRecords[i].toString(), null);
@@ -56,7 +44,16 @@ public class FormViewData extends AbstractFuelOMeterScreen {
 	 * @author Sounak Ray
 	 */
 	public void unloadScreen(){
-	// TODO Auto-generated method stub
+		((List) screen).deleteAll();
+	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.sounakray.fuelometer.forms.AbstractForm#handleAction(javax.microedition .lcdui.Command)
+	 */
+	public void executeCommand(final Command command){
+		if(command == cmdMainMenu){
+			midlet.setDisplay(midlet.scrMainMenu, null);
+		}
 	}
 }

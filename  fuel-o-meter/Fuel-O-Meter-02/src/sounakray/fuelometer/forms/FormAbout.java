@@ -18,21 +18,32 @@ import sounakray.fuelometer.midlet.FuelOMeter;
 public final class FormAbout extends AbstractFuelOMeterScreen {
 	// TODO: Make Singleton!
 
-	final Form form;
 	private final Command cmdMainMenu = new Command("Back", "Main Menu", Command.BACK, 0);
-	private final String strAboutText;
 
 	public FormAbout(final FuelOMeter midlet) {
 		super(new Form("About Fuel-O-Meter"), midlet);
+		((Form) screen).addCommand(cmdMainMenu);
+	}
 
-		strAboutText =
-			" \t This application has been developed as a part of my hobby programming, and is not to be "
-					+ "distributed commercially. It is made available without any warranty or guarantee, "
-					+ "and should be used at user's own risk.";
+	/*
+	 * (non-Javadoc)
+	 * @see sounakray.fuelometer.forms.AbstractFuelOMeterScreen#loadScreen()
+	 * @author Sounak Ray
+	 */
+	public void loadScreen(){
+		((Form) screen)
+			.append("    This application has been developed as a part of my hobby programming, and is not to be "
+					+ "distributed commercially. It is made available without any warranty or guarantee, and "
+					+ "should be used at user's own risk.");
+	}
 
-		form = (Form) screen;
-		form.append(strAboutText);
-		form.addCommand(cmdMainMenu);
+	/*
+	 * (non-Javadoc)
+	 * @see sounakray.fuelometer.forms.AbstractFuelOMeterScreen#unloadScreen()
+	 * @author Sounak Ray
+	 */
+	public void unloadScreen(){
+		((Form) screen).deleteAll();
 	}
 
 	/*
@@ -45,20 +56,4 @@ public final class FormAbout extends AbstractFuelOMeterScreen {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see sounakray.fuelometer.forms.AbstractFuelOMeterScreen#loadScreen()
-	 * @author Sounak Ray
-	 */
-	public void loadScreen(){}
-
-	/*
-	 * (non-Javadoc)
-	 * @see sounakray.fuelometer.forms.AbstractFuelOMeterScreen#unloadScreen()
-	 * @author Sounak Ray
-	 */
-	public void unloadScreen(){
-	// TODO Auto-generated method stub
-
-	}
 }
