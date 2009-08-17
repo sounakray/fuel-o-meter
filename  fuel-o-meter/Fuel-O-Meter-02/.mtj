@@ -5,11 +5,11 @@
       <alias/>
    </signing>
    <configurations>
-      <configuration active="true" name="DefaultCldcPhone1 (1)">
-         <device group="Java(TM) Platform Micro Edition SDK 3.0" name="DefaultCldcPhone1 (1)"/>
-         <symbolSet name="DefaultCldcPhone1 (1)">
-            <symbol name="screen.isColor" value="true"/>
+      <configuration active="true" name="DefaultCldcPhone1">
+         <device group="Java(TM) Platform Micro Edition SDK 3.0" name="DefaultCldcPhone1"/>
+         <symbolSet name="DefaultCldcPhone1">
             <symbol name="MMAPI" value="1.1"/>
+            <symbol name="screen.isColor" value="true"/>
             <symbol name="descriptor" value="CLDC emulator"/>
             <symbol name="screen.bitDepth" value="16"/>
             <symbol name="JSR82" value="1.1"/>

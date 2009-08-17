@@ -37,14 +37,19 @@ public abstract class AbstractFuelOMeterScreen {
 	}
 
 	/**
-	 * Method Description:
+	 * Method Description: Implementation of this method is expected to load all the UI components of this screen, when
+	 * this screen is set as the current display screen. The {@link AbstractFuelOMeterScreen#unloadScreen()
+	 * unloadScreen()} method should be able to unload these and release memory.
+	 * @see FuelOMeter#setDisplay(AbstractFuelOMeterScreen, javax.microedition.lcdui.Alert)
 	 * @author Sounak Ray
 	 * @since Aug 16, 2009
 	 */
 	public abstract void loadScreen();
 
 	/**
-	 * Method Description:
+	 * Method Description: Implementation of this method is expected to release all memory allocated by this screen in
+	 * the {@link AbstractFuelOMeterScreen#loadScreen() loadScreen()} method.
+	 * @see FuelOMeter#setDisplay(AbstractFuelOMeterScreen, javax.microedition.lcdui.Alert)
 	 * @author Sounak Ray
 	 * @since Aug 16, 2009
 	 */
