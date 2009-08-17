@@ -51,22 +51,6 @@ public final class FormAddNewFillUp extends AbstractFuelOMeterScreen {
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.sounakray.fuelometer.forms.AbstractForm#handleAction(javax.microedition .lcdui.Command)
-	 */
-	public void executeCommand(final Command c){
-		if(c == cmdMainMenu){
-			midlet.setDisplay(midlet.scrMainMenu, null);
-		}else if(c == cmdSaveRec){
-			final Alert alert =
-				(midlet.manager.saveRecord(dtfFillupDate.getDate(), txtOdometer.getString(), txtVolume.getString(),
-					txtRate.getString())) ? new Alert("Saved", "Fill-up data saved successfully!", null, AlertType.INFO) : new Alert(
-					"Error!!!", "Fill-up data could not be saved successfully!", null, AlertType.ERROR);
-			midlet.setDisplay(midlet.scrMainMenu, alert);
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
 	 * @see sounakray.fuelometer.forms.AbstractFuelOMeterScreen#refreshScreen()
 	 * @author Sounak Ray
 	 */
@@ -79,8 +63,21 @@ public final class FormAddNewFillUp extends AbstractFuelOMeterScreen {
 	 * @see sounakray.fuelometer.forms.AbstractFuelOMeterScreen#unloadScreen()
 	 * @author Sounak Ray
 	 */
-	public void unloadScreen(){
-	// TODO Auto-generated method stub
+	public void unloadScreen(){}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.sounakray.fuelometer.forms.AbstractForm#handleAction(javax.microedition .lcdui.Command)
+	 */
+	public void executeCommand(final Command c){
+		if(c == cmdMainMenu){
+			midlet.setDisplay(midlet.scrMainMenu, null);
+		}else if(c == cmdSaveRec){
+			final Alert alert =
+				(midlet.manager.saveRecord(dtfFillupDate.getDate(), txtOdometer.getString(), txtVolume.getString(),
+					txtRate.getString())) ? new Alert("Saved", "Fill-up data saved successfully!", null, AlertType.INFO) : new Alert(
+					"Error!!!", "Fill-up data could not be saved successfully!", null, AlertType.ERROR);
+			midlet.setDisplay(midlet.scrMainMenu, alert);
+		}
 	}
 }

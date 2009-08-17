@@ -56,16 +56,17 @@ public abstract class AbstractFuelOMeterScreen {
 	public abstract void unloadScreen();
 
 	/**
-	 * Method Description:
-	 * @param command
+	 * Method Description: Implementation of this method is expected to execute the action associated to the Command
+	 * button being passed.
+	 * @param command The command button pressed.
 	 * @author Sounak Ray
 	 * @since Aug 16, 2009
 	 */
 	public abstract void executeCommand(final Command command);
 
 	/**
-	 * Method Description:
-	 * @return
+	 * Method Description: Returns the this objects's screen reference (can typically be Form, List, etc...)
+	 * @return A Displayable screen reference.
 	 * @author Sounak Ray
 	 * @since Aug 16, 2009
 	 */

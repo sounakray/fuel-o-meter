@@ -10,7 +10,6 @@ package sounakray.fuelometer.forms;
 
 import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.Form;
-import javax.microedition.lcdui.TextField;
 import sounakray.fuelometer.midlet.FuelOMeter;
 import sounakray.fuelometer.model.StatisticsData;
 
@@ -20,11 +19,9 @@ import sounakray.fuelometer.model.StatisticsData;
 public class FormViewStatistics extends AbstractFuelOMeterScreen {
 	// TODO: Make Singleton!
 	private final Command cmdMainMenu = new Command("Back", "Main Menu", Command.BACK, 0);
-	private TextField txtStartDate, txtEndDate, txtAverageMileage;
 
 	public FormViewStatistics(final FuelOMeter midlet) {
 		super(new Form("Statistics"), midlet);
-
 		screen.addCommand(cmdMainMenu);
 	}
 
@@ -44,17 +41,23 @@ public class FormViewStatistics extends AbstractFuelOMeterScreen {
 	 * @author Sounak Ray
 	 */
 	public void loadScreen(){
-		final Form frmStats = (Form) screen;
-		frmStats.deleteAll();
-
 		final StatisticsData stats = midlet.manager.getStatistics();
-		txtStartDate = new TextField("Start Date: ", stats.getStartDate(), 10, TextField.UNEDITABLE);
-		txtEndDate = new TextField("End Date: ", stats.getEndDate(), 10, TextField.UNEDITABLE);
-		txtAverageMileage = new TextField("Average Mileage: ", stats.getAverageMileage(), 6, TextField.UNEDITABLE);
-
-		frmStats.append(txtStartDate);
-		frmStats.append(txtEndDate);
-		frmStats.append(txtAverageMileage);
+		final Form frmStats = (Form) screen;
+		if(stats == null){
+			frmStats.append("Not enough data available to generate statistics!");
+		}else{
+			frmStats.append("Report Range : " + stats.getStartDate() + " - " + stats.getEndDate() + " ("
+					+ stats.getTotalDays() + ") days");
+			frmStats.append("Last Mileage          : " + stats.getLastMileage());
+			frmStats.append("Average Mileage       : " + stats.getAverageMileage());
+			frmStats.append("Cost per distance     : " + stats.getAverageCostPerDist());
+			frmStats.append("Fuel per 100 Distance : " + stats.getFuelPer100Dist());
+			frmStats.append("Total distance        : " + stats.getTotalDistance());
+			frmStats.append("Total fuel consumed   : " + stats.getTotalFuelConsumed());
+			frmStats.append("Total money consumed  : " + stats.getTotalMoneyConsumed());
+			frmStats.append("Total fuel purchased  : " + stats.getTotalFuel());
+			frmStats.append("Total money spent     : " + stats.getTotalMoney());
+		}
 	}
 
 	/*
@@ -63,7 +66,6 @@ public class FormViewStatistics extends AbstractFuelOMeterScreen {
 	 * @author Sounak Ray
 	 */
 	public void unloadScreen(){
-	// TODO Auto-generated method stub
-
+		((Form) screen).deleteAll();
 	}
 }

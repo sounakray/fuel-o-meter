@@ -22,6 +22,16 @@ import sounakray.fuelometer.model.StatisticsData;
 public final class FuelOMeterManager {
 	final FuelOMeterDAO dao = new CachedRecordStoreDAOImpl();
 
+	/**
+	 * Method Description:
+	 * @param date
+	 * @param odometer
+	 * @param volume
+	 * @param unitPrice
+	 * @return
+	 * @author Sounak Ray
+	 * @since Aug 18, 2009
+	 */
 	public boolean saveRecord(final Date date, final String odometer, final String volume, final String unitPrice){
 		boolean isSuccessful = true;
 		try{
@@ -32,30 +42,57 @@ public final class FuelOMeterManager {
 		return isSuccessful;
 	}
 
+	/**
+	 * Method Description:
+	 * @return
+	 * @author Sounak Ray
+	 * @since Aug 18, 2009
+	 */
 	public FillUp[] getAllRecords(){
 		final FillUp[] records = dao.getAllFillUpList();
+		// TODO: Move the sorting logic to here from the DAO layer.
 		return records;
 	}
 
+	/**
+	 * Method Description: Generates a statistical report out of the available data.
+	 * @return
+	 * @author Sounak Ray
+	 * @since Aug 18, 2009
+	 */
 	public StatisticsData getStatistics(){
-		final StatisticsData stats = new StatisticsData();
+		final StatisticsData stats;
 		final FillUp[] records = getAllRecords();
 		int totalFuel = 0, totalDistance, totalCost = 0;
 		final int numRecs = records.length;
 		if(numRecs > 1){
 			FillUp record = records[0];
-			final FillUp firstRec = records[0], lastRec = records[numRecs - 1];
+			final FillUp firstRec = records[0], lastRec = records[numRecs - 1], scndLastRec = records[numRecs - 2];
 			totalDistance = MathFP.sub(lastRec.getOdometer(), firstRec.getOdometer());
 
 			for(int i = 0; i < numRecs - 1; record = records[++i]){
 				totalFuel = MathFP.add(totalFuel, record.getVolume());
 				totalCost = MathFP.add(totalCost, MathFP.mul(record.getVolume(), record.getUnitPrice()));
 			}
+			final int avgMileage = MathFP.div(totalDistance, totalFuel);
 
+			stats = new StatisticsData();
 			stats.setStartDate(getFormattedDate(firstRec.getDate().getTime()));
 			stats.setEndDate(getFormattedDate(lastRec.getDate().getTime()));
-			stats.setAverageMileage(MathFP.toString(MathFP.div(totalDistance, totalFuel), 2));
-
+			stats.setAverageMileage(MathFP.toString(avgMileage, 2));
+			stats.setAverageCostPerDist(MathFP.toString(MathFP.div(totalCost, totalDistance), 2));
+			stats.setFuelPer100Dist(MathFP.toString(MathFP.div(MathFP.toFP("100"), avgMileage), 2));
+			stats.setLastMileage(MathFP.toString(MathFP.div(MathFP
+				.sub(lastRec.getOdometer(), scndLastRec.getOdometer()), scndLastRec.getVolume()), 2));
+			// stats.setTotalDays(totalDays);
+			stats.setTotalDistance(MathFP.toString(totalDistance, 1));
+			stats.setTotalFuelConsumed(MathFP.toString(totalFuel, 2));
+			stats.setTotalFuel(MathFP.toString(MathFP.add(totalFuel, lastRec.getVolume()), 2));
+			stats.setTotalMoneyConsumed(MathFP.toString(totalCost, 2));
+			stats.setTotalMoney(MathFP.toString(MathFP.add(totalCost, MathFP.mul(lastRec.getVolume(), lastRec
+				.getUnitPrice())), 2));
+		}else{
+			stats = null;
 		}
 		return stats;
 	}
