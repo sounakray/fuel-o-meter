@@ -20,6 +20,7 @@ import sounakray.fuelometer.forms.FormAbout;
 import sounakray.fuelometer.forms.FormAddNewFillUp;
 import sounakray.fuelometer.forms.FormViewData;
 import sounakray.fuelometer.forms.FormViewStatistics;
+import sounakray.fuelometer.forms.GraphCanvas;
 import sounakray.fuelometer.forms.ListMainMenu;
 import sounakray.fuelometer.manager.FuelOMeterManager;
 
@@ -33,6 +34,7 @@ public final class FuelOMeter extends MIDlet implements CommandListener {
 	public final AbstractFuelOMeterScreen scrAbout;
 	public final AbstractFuelOMeterScreen scrViewData;
 	public final AbstractFuelOMeterScreen scrViewStats;
+	public final AbstractFuelOMeterScreen scrGraph;
 
 	/**
 	 * Constructor Description: Default constructor for the MIDlet. Sets the display, and instantiates the manager.
@@ -47,6 +49,7 @@ public final class FuelOMeter extends MIDlet implements CommandListener {
 		scrAddRec = new FormAddNewFillUp(this);
 		scrViewData = new FormViewData(this);
 		scrViewStats = new FormViewStatistics(this);
+		scrGraph = new GraphCanvas(this);
 		scrAbout = new FormAbout(this);
 	}
 
