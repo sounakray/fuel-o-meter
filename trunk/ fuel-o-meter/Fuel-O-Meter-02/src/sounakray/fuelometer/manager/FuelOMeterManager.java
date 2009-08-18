@@ -99,6 +99,34 @@ public final class FuelOMeterManager {
 	}
 
 	/**
+	 * Method Description: Returns an array of integers representing the previous averages. This method requires at
+	 * least three fill up records to calculate the history. If number of records is insufficient, null is returned. The
+	 * values are rounded off to integers.
+	 * @return list of integers representing the mileage history.
+	 * @author Sounak Ray
+	 * @since Aug 19, 2009
+	 */
+	public int[] getMileageHistory(){
+		final int[] mileageHistory;
+		final FillUp[] records = getAllRecords();
+		final int numRecs = records.length;
+		if(numRecs > 2){
+			FillUp record, prevRec;
+			mileageHistory = new int[numRecs - 1];
+			for(int i = 1; i < numRecs; i++){
+				prevRec = records[i - 1];
+				record = records[i];
+				mileageHistory[i - 1] =
+					MathFP.toInt(MathFP.div(MathFP.sub(record.getOdometer(), prevRec.getOdometer()), prevRec
+						.getVolume()));
+			}
+		}else{
+			mileageHistory = null;
+		}
+		return mileageHistory;
+	}
+
+	/**
 	 * Method Description: This method formats the given time from epoch, in 'MM/DD/YYYY' format;
 	 * @param date the milliseconds since January 1, 1970, 00:00:00 GMT.
 	 * @return The same date in 'MM/DD/YYYY' format

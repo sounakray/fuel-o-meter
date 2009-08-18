@@ -66,6 +66,7 @@ public final class ListMainMenu extends AbstractFuelOMeterScreen {
 				midlet.setDisplay(midlet.scrViewStats, null);
 				break;
 			case 3:
+				midlet.setDisplay(midlet.scrGraph, null);
 				break;
 			case 4:
 				break;
