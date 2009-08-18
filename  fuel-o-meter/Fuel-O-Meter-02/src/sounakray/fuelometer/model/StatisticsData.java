@@ -25,6 +25,10 @@ public final class StatisticsData {
 	private String fuelPer100Dist = "";
 	private String averageCostPerDist = "";
 
+	private static final String UNIT_DIST_SHORT = "Km";
+	private static final String UNIT_VOL_SHORT = "ltr";
+	private static final String CURRENCY = "Rs.";
+
 	/**
 	 * @return the startDate
 	 */
@@ -57,7 +61,7 @@ public final class StatisticsData {
 	 * @return the averageMileage
 	 */
 	public final String getAverageMileage(){
-		return this.averageMileage;
+		return this.averageMileage + ' ' + UNIT_DIST_SHORT + '/' + UNIT_VOL_SHORT;
 	}
 
 	/**
@@ -71,7 +75,7 @@ public final class StatisticsData {
 	 * @return the lastMileage
 	 */
 	public final String getLastMileage(){
-		return this.lastMileage;
+		return this.lastMileage + ' ' + UNIT_DIST_SHORT + '/' + UNIT_VOL_SHORT;
 	}
 
 	/**
@@ -85,7 +89,7 @@ public final class StatisticsData {
 	 * @return the totalDistance
 	 */
 	public final String getTotalDistance(){
-		return this.totalDistance;
+		return this.totalDistance + ' ' + UNIT_DIST_SHORT;
 	}
 
 	/**
@@ -99,7 +103,7 @@ public final class StatisticsData {
 	 * @return the totalDays
 	 */
 	public final String getTotalDays(){
-		return this.totalDays;
+		return this.totalDays + " days";
 	}
 
 	/**
@@ -113,7 +117,7 @@ public final class StatisticsData {
 	 * @return the totalFuelConsumed
 	 */
 	public final String getTotalFuelConsumed(){
-		return this.totalFuelConsumed;
+		return this.totalFuelConsumed + ' ' + UNIT_VOL_SHORT;
 	}
 
 	/**
@@ -127,7 +131,7 @@ public final class StatisticsData {
 	 * @return the totalMoneyConsumed
 	 */
 	public final String getTotalMoneyConsumed(){
-		return this.totalMoneyConsumed;
+		return CURRENCY + this.totalMoneyConsumed;
 	}
 
 	/**
@@ -141,7 +145,7 @@ public final class StatisticsData {
 	 * @return the totalFuel
 	 */
 	public final String getTotalFuel(){
-		return this.totalFuel;
+		return this.totalFuel + ' ' + UNIT_VOL_SHORT;
 	}
 
 	/**
@@ -155,7 +159,7 @@ public final class StatisticsData {
 	 * @return the totalMoney
 	 */
 	public final String getTotalMoney(){
-		return this.totalMoney;
+		return CURRENCY + this.totalMoney;
 	}
 
 	/**
@@ -183,7 +187,7 @@ public final class StatisticsData {
 	 * @return the averageCostPerDist
 	 */
 	public final String getAverageCostPerDist(){
-		return this.averageCostPerDist;
+		return CURRENCY + this.averageCostPerDist;
 	}
 
 	/**

@@ -79,12 +79,13 @@ public final class FuelOMeterManager {
 			stats = new StatisticsData();
 			stats.setStartDate(getFormattedDate(firstRec.getDate().getTime()));
 			stats.setEndDate(getFormattedDate(lastRec.getDate().getTime()));
+			stats.setTotalDays(String
+				.valueOf((lastRec.getDate().getTime() - firstRec.getDate().getTime()) / (86400000)));
 			stats.setAverageMileage(MathFP.toString(avgMileage, 2));
 			stats.setAverageCostPerDist(MathFP.toString(MathFP.div(totalCost, totalDistance), 2));
 			stats.setFuelPer100Dist(MathFP.toString(MathFP.div(MathFP.toFP("100"), avgMileage), 2));
 			stats.setLastMileage(MathFP.toString(MathFP.div(MathFP
 				.sub(lastRec.getOdometer(), scndLastRec.getOdometer()), scndLastRec.getVolume()), 2));
-			// stats.setTotalDays(totalDays);
 			stats.setTotalDistance(MathFP.toString(totalDistance, 1));
 			stats.setTotalFuelConsumed(MathFP.toString(totalFuel, 2));
 			stats.setTotalFuel(MathFP.toString(MathFP.add(totalFuel, lastRec.getVolume()), 2));
