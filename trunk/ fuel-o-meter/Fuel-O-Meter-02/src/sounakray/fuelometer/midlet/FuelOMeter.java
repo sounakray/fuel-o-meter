@@ -15,7 +15,6 @@ import javax.microedition.lcdui.Display;
 import javax.microedition.lcdui.Displayable;
 import javax.microedition.midlet.MIDlet;
 import javax.microedition.midlet.MIDletStateChangeException;
-
 import sounakray.fuelometer.forms.AbstractFuelOMeterScreen;
 import sounakray.fuelometer.forms.FormAbout;
 import sounakray.fuelometer.forms.FormAddNewFillUp;
@@ -40,9 +39,7 @@ public final class FuelOMeter extends MIDlet implements CommandListener {
 	public final AbstractFuelOMeterScreen scrSetup;
 
 	/**
-	 * Constructor Description: Default constructor for the MIDlet. Sets the
-	 * display, and instantiates the manager.
-	 * 
+	 * Constructor Description: Default constructor for the MIDlet. Sets the display, and instantiates the manager.
 	 * @author Sounak Ray
 	 * @since Aug 16, 2009
 	 */
@@ -60,44 +57,36 @@ public final class FuelOMeter extends MIDlet implements CommandListener {
 	}
 
 	/**
-	 * Method Description: Displays the screen provided, after showing the alert
-	 * if it is not null. This method also invokes the
-	 * {@link AbstractFuelOMeterScreen#loadScreen() loadScreen()} and
-	 * {@link AbstractFuelOMeterScreen#unloadScreen() unloadScreen()} method on
-	 * the next and the current screen respectively.
-	 * 
-	 * @param screen
-	 *            An AbstractFuelOMeterScreen implementation that will be
-	 *            displayed as the current screen.
-	 * @param alert
-	 *            An alert that is to be shown before showing the screen
-	 *            mentioned, if it is not null.
+	 * Method Description: Displays the screen provided, after showing the alert if it is not null. This method also
+	 * invokes the {@link AbstractFuelOMeterScreen#loadScreen() loadScreen()} and
+	 * {@link AbstractFuelOMeterScreen#unloadScreen() unloadScreen()} method on the next and the current screen
+	 * respectively.
+	 * @param screen An AbstractFuelOMeterScreen implementation that will be displayed as the current screen.
+	 * @param alert An alert that is to be shown before showing the screen mentioned, if it is not null.
 	 * @author Sounak Ray
 	 * @since Aug 16, 2009
 	 * @see AbstractFuelOMeterScreen#loadScreen()
 	 * @see AbstractFuelOMeterScreen#unloadScreen()
 	 */
-	public void setDisplay(final AbstractFuelOMeterScreen screen,
-			final Alert alert) {
-		if (currentScreen != null) {
+	public void setDisplay(final AbstractFuelOMeterScreen screen, final Alert alert){
+		if(currentScreen != null){
 			currentScreen.unloadScreen();
 		}
 		currentScreen = screen;
 		currentScreen.loadScreen();
-		if (alert == null) {
+		if(alert == null){
 			display.setCurrent(currentScreen.getScreen());
-		} else {
+		}else{
 			display.setCurrent(alert, currentScreen.getScreen());
 		}
 	}
 
 	/**
 	 * Method Description: Shuts down the MIDlet application.
-	 * 
 	 * @author Sounak Ray
 	 * @since Aug 16, 2009
 	 */
-	public void exitMIDlet() {
+	public void exitMIDlet(){
 		destroyApp(false);
 		notifyDestroyed();
 	}
@@ -106,41 +95,31 @@ public final class FuelOMeter extends MIDlet implements CommandListener {
 	// //////////////////////////////////////
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see javax.microedition.midlet.MIDlet#startApp()
-	 * 
 	 * @author Sounak Ray
 	 */
-	protected void startApp() throws MIDletStateChangeException {
+	protected void startApp() throws MIDletStateChangeException{
 		setDisplay(scrMainMenu, null);
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see javax.microedition.midlet.MIDlet#pauseApp()
-	 * 
 	 * @author Sounak Ray
 	 */
-	protected void pauseApp() {
-	}
+	protected void pauseApp(){}
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see javax.microedition.midlet.MIDlet#destroyApp(boolean)
-	 * 
 	 * @author Sounak Ray
 	 */
-	protected void destroyApp(final boolean unconditional) {
-	}
+	protected void destroyApp(final boolean unconditional){}
 
 	// /////////////////////////////////// Listener/Handler Methods
 	// //////////////////////////////////////
 	/**
-	 * Method Description: This method simply delegates the function to the
-	 * current screen class.
-	 * 
+	 * Method Description: This method simply delegates the function to the current screen class.
 	 * @param command
 	 * @param displayable
 	 * @see javax.microedition.lcdui.CommandListener#commandAction(javax.microedition.lcdui.Command,
@@ -148,7 +127,7 @@ public final class FuelOMeter extends MIDlet implements CommandListener {
 	 * @see AbstractFuelOMeterScreen#executeCommand(Command)
 	 * @author Sounak Ray
 	 */
-	public void commandAction(final Command command, Displayable displayable) {
+	public void commandAction(final Command command, Displayable displayable){
 		currentScreen.executeCommand(command);
 	}
 }
