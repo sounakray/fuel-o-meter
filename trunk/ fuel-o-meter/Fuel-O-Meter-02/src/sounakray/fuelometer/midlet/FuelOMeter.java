@@ -91,8 +91,7 @@ public final class FuelOMeter extends MIDlet implements CommandListener {
 		notifyDestroyed();
 	}
 
-	// /////////////////////////////////// MIDlet API Methods
-	// //////////////////////////////////////
+	// /////////////////////////////////// MIDlet API Methods ////////////////////////////////////////
 	/*
 	 * (non-Javadoc)
 	 * @see javax.microedition.midlet.MIDlet#startApp()
@@ -116,8 +115,7 @@ public final class FuelOMeter extends MIDlet implements CommandListener {
 	 */
 	protected void destroyApp(final boolean unconditional){}
 
-	// /////////////////////////////////// Listener/Handler Methods
-	// //////////////////////////////////////
+	// /////////////////////////////////// Listener/Handler Methods ////////////////////////////////////////
 	/**
 	 * Method Description: This method simply delegates the function to the current screen class.
 	 * @param command
