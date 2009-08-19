@@ -1,10 +1,11 @@
-#Wed Aug 19 00:55:52 IST 2009
+#Thu Aug 20 02:25:25 IST 2009
 eclipse.preferences.version=1
 encoding//.processed/src/sounakray/fuelometer/DAO/CachedRecordStoreDAOImpl.java=Cp1252
 encoding//.processed/src/sounakray/fuelometer/DAO/FuelOMeterDAO.java=Cp1252
 encoding//.processed/src/sounakray/fuelometer/forms/AbstractFuelOMeterScreen.java=Cp1252
 encoding//.processed/src/sounakray/fuelometer/forms/FormAbout.java=Cp1252
 encoding//.processed/src/sounakray/fuelometer/forms/FormAddNewFillUp.java=Cp1252
+encoding//.processed/src/sounakray/fuelometer/forms/FormSetup.java=Cp1252
 encoding//.processed/src/sounakray/fuelometer/forms/FormViewData.java=Cp1252
 encoding//.processed/src/sounakray/fuelometer/forms/FormViewStatistics.java=Cp1252
 encoding//.processed/src/sounakray/fuelometer/forms/GraphCanvas.java=Cp1252
