@@ -10,7 +10,6 @@ package sounakray.fuelometer.forms;
 
 import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.List;
-
 import sounakray.fuelometer.midlet.FuelOMeter;
 
 /**
@@ -27,12 +26,10 @@ public final class ListMainMenu extends AbstractFuelOMeterScreen {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see sounakray.fuelometer.forms.AbstractFuelOMeterScreen#refreshScreen()
-	 * 
 	 * @author Sounak Ray
 	 */
-	public void loadScreen() {
+	public void loadScreen(){
 		final List lstMainMenu = (List) screen;
 		lstMainMenu.append("1. New Fill-up", null);
 		lstMainMenu.append("2. Show Data", null);
@@ -44,26 +41,21 @@ public final class ListMainMenu extends AbstractFuelOMeterScreen {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see sounakray.fuelometer.forms.AbstractFuelOMeterScreen#unloadScreen()
-	 * 
 	 * @author Sounak Ray
 	 */
-	public void unloadScreen() {
+	public void unloadScreen(){
 		((List) screen).deleteAll();
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.sounakray.fuelometer.forms.AbstractForm#handleAction(javax.microedition
-	 * .lcdui.Command)
+	 * @see com.sounakray.fuelometer.forms.AbstractForm#handleAction(javax.microedition .lcdui.Command)
 	 */
-	public void executeCommand(final Command command) {
+	public void executeCommand(final Command command){
 		// TODO shift all references to all the screens to this class as this
 		// controls navigation to all the screens.
-		if (command == List.SELECT_COMMAND) {
+		if(command == List.SELECT_COMMAND){
 			switch (((List) screen).getSelectedIndex()) {
 			case 0:
 				midlet.setDisplay(midlet.scrAddRec, null);
@@ -85,7 +77,7 @@ public final class ListMainMenu extends AbstractFuelOMeterScreen {
 				break;
 			default:
 			}
-		} else if (command == cmdExit) {
+		}else if(command == cmdExit){
 			midlet.exitMIDlet();
 		}
 	}
