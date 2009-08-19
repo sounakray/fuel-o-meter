@@ -1,4 +1,5 @@
 MIDlet-Version: 1.0.0
+MIDlet-Info-URL: http://code.google.com/p/fuel-o-meter
 MIDlet-Vendor: Sounak Ray
 MIDlet-Jar-URL: Fuel-O-Meter.jar
 MicroEdition-Configuration: CLDC-1.0
