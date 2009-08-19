@@ -75,8 +75,9 @@ public final class FormAddNewFillUp extends AbstractFuelOMeterScreen {
 		}else if(c == cmdSaveRec){
 			final Alert alert =
 				(midlet.manager.saveRecord(dtfFillupDate.getDate(), txtOdometer.getString(), txtVolume.getString(),
-					txtRate.getString())) ? new Alert("Saved", "Fill-up data saved successfully!", null, AlertType.INFO) : new Alert(
-					"Error!!!", "Fill-up data could not be saved successfully!", null, AlertType.ERROR);
+					txtRate.getString())) ? new Alert("Saved", "Fill-up data saved successfully!", null,
+					AlertType.CONFIRMATION) : new Alert("Error!!!", "Fill-up data could not be saved successfully!",
+					null, AlertType.ERROR);
 			midlet.setDisplay(midlet.scrMainMenu, alert);
 		}
 	}
