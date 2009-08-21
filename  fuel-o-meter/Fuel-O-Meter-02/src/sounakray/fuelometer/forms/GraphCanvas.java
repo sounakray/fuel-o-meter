@@ -9,6 +9,7 @@ package sounakray.fuelometer.forms;
 
 import javax.microedition.lcdui.Canvas;
 import javax.microedition.lcdui.Command;
+import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Graphics;
 import sounakray.fuelometer.manager.FuelOMeterManager;
 import sounakray.fuelometer.midlet.FuelOMeter;
@@ -26,6 +27,9 @@ public class GraphCanvas extends AbstractFuelOMeterScreen {
 	public GraphCanvas(final FuelOMeter midlet) {
 		super(new Canvas() {
 			final int margin = 10;
+			final int numEntries = 10;
+			final int graphDotSize = 6;
+			final int dotRadius = graphDotSize / 2;
 
 			/*
 			 * (non-Javadoc)
@@ -44,52 +48,65 @@ public class GraphCanvas extends AbstractFuelOMeterScreen {
 					g.setColor(0, 0, 0);
 					g.drawString("Insufficient Data!", 0, getHeight() / 2, Graphics.BASELINE | Graphics.LEFT);
 				}else{
-					final int len = mileageHistory.length;
-					int sumMileage = 0, min, max = min = mileageHistory[0];
+					final int avgMileage = mileageHistory[0];
+					final int minIndex = Math.max(1, mileageHistory.length - numEntries);
+					final int len = mileageHistory.length - minIndex;
+					int min, max = min = avgMileage;
 
-					for(int i = 0; i < len; i++){
+					for(int i = minIndex; i < mileageHistory.length; i++){
 						max = Math.max(max, mileageHistory[i]);
 						min = Math.min(min, mileageHistory[i]);
-						sumMileage += mileageHistory[i];
+						// sumMileage += mileageHistory[i];
 					}
-					final int avgMileage = sumMileage / len;
 					final int x = width / (len - 1);
 					final int y = height / (max - min);
 
-					int x1 = 0, x2, y1, y2;
-					for(int i = 1; i < len; i++){
-						x1 = (margin + x * (i - 1));
+					g.setFont(Font.getFont(Font.FACE_PROPORTIONAL, Font.STYLE_PLAIN, Font.SIZE_SMALL));
+
+					int x1 = margin - x, x2, y1, y2;
+					for(int i = minIndex + 1; i < mileageHistory.length; i++){
+						x1 += x;
 						y1 = (margin + y * (max - mileageHistory[i - 1]));
 						x2 = x1 + x;
 						y2 = (margin + y * (max - mileageHistory[i]));
-						g.setColor(0, 255, 0);
+						g.setColor(180, 180, 180);
 						g.setStrokeStyle(Graphics.DOTTED);
 						g.drawLine(x1, margin, x1, margin + height);
 
 						g.setColor(0, 0, 0);
-						g.drawString(String.valueOf(mileageHistory[i - 1]), x1, y1, Graphics.BOTTOM | Graphics.HCENTER);
+						g.drawString(String.valueOf(mileageHistory[i - 1]), x1 + dotRadius, y1, Graphics.TOP
+								| Graphics.LEFT);
 
 						g.setColor(0, 0, 255);
 						g.setStrokeStyle(Graphics.SOLID);
 						g.drawLine(x1, y1, x2, y2);
-						g.fillArc(x1, y1, 3, 3, 0, 360);
+						g.fillArc(x1 - dotRadius, y1 - dotRadius, graphDotSize, graphDotSize, 0, 360);
 					}
-					g.setColor(0, 255, 0);
+					x1 += x;
+					g.setColor(180, 180, 180);
 					g.setStrokeStyle(Graphics.DOTTED);
-					g.drawLine((x1 + x), margin, (x1 + x), margin + height);
+					g.drawLine((x1), margin, (x1), margin + height);
 
 					// Average
+					g.setFont(Font.getFont(Font.FACE_SYSTEM, Font.STYLE_ITALIC, Font.SIZE_MEDIUM));
 					g.setColor(0, 0, 0);
 					g.setStrokeStyle(Graphics.DOTTED);
-					g.drawLine(margin, (margin + y * (max - avgMileage)), (margin + width), (margin + y
+					g.drawLine(margin / 2, (margin + y * (max - avgMileage)), (margin * 3 / 2 + width), (margin + y
 							* (max - avgMileage)));
 					g.drawString("Avg:" + avgMileage, 0, (margin + y * (max - avgMileage)), Graphics.TOP
 							| Graphics.LEFT);
 
 					// Last Mileage
-					g.setColor(0, 0, 0);
-					g.drawString(String.valueOf(mileageHistory[len - 1]), x1 + x, (margin + y
-							* (max - mileageHistory[len - 1])), Graphics.BOTTOM | Graphics.HCENTER);
+					g.setFont(Font.getFont(Font.FACE_PROPORTIONAL, Font.STYLE_BOLD, Font.SIZE_MEDIUM));
+					if(avgMileage < mileageHistory[mileageHistory.length - 1]){
+						g.setColor(0, 255, 0);
+					}else{
+						g.setColor(255, 0, 0);
+					}
+					g.drawString(String.valueOf(mileageHistory[mileageHistory.length - 1]), x1 - dotRadius, (margin + y
+							* (max - mileageHistory[mileageHistory.length - 1])), Graphics.TOP | Graphics.HCENTER);
+					g.fillArc(x1 - dotRadius, (margin + y * (max - mileageHistory[mileageHistory.length - 1]))
+							- dotRadius, graphDotSize, graphDotSize, 0, 360);
 				}
 			}
 		}, midlet);
@@ -114,9 +131,10 @@ public class GraphCanvas extends AbstractFuelOMeterScreen {
 	 */
 	public void loadScreen(){
 		// TODO: Test data to be removed.
-		// int[] x = { 45, 50, 42, 57, 60, 55, 45, 48, 52 };
-		System.out.println("load: " + System.currentTimeMillis());
-		mileageHistory = new FuelOMeterManager().getMileageHistory();
+		// int[] x = { 53, 50, 42, 57, 60, 55, 45, 48, 52, 55, 58, 58 };
+		// System.out.println("load: " + System.currentTimeMillis());
+		mileageHistory = new FuelOMeterManager().getMileageHistory(); // FIXME : Must be converted to singleton.
+		// mileageHistory = x;
 		if(mileageHistory != null){
 			((Canvas) screen).repaint();
 		}

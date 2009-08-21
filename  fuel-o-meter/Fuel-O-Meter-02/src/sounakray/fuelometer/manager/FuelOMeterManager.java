@@ -99,9 +99,10 @@ public final class FuelOMeterManager {
 	}
 
 	/**
-	 * Method Description: Returns an array of integers representing the previous averages. This method requires at
+	 * Method Description: Returns an array of integers representing the previous mileages. This method requires at
 	 * least three fill up records to calculate the history. If number of records is insufficient, null is returned. The
-	 * values are rounded off to integers.
+	 * values are rounded off to integers. <br>
+	 * <b>Note:</b>The element at index position 0 represents the weighted-mean (average) mileage.
 	 * @return list of integers representing the mileage history.
 	 * @author Sounak Ray
 	 * @since Aug 19, 2009
@@ -110,16 +111,23 @@ public final class FuelOMeterManager {
 		final int[] mileageHistory;
 		final FillUp[] records = getAllRecords();
 		final int numRecs = records.length;
+		int totalCost = 0, totalFuel = 0;
 		if(numRecs > 2){
 			FillUp record, prevRec;
-			mileageHistory = new int[numRecs - 1];
+			mileageHistory = new int[numRecs];
 			for(int i = 1; i < numRecs; i++){
 				prevRec = records[i - 1];
 				record = records[i];
-				mileageHistory[i - 1] =
+
+				totalFuel = MathFP.add(totalFuel, prevRec.getVolume());
+				totalCost = MathFP.add(totalCost, MathFP.mul(prevRec.getVolume(), prevRec.getUnitPrice()));
+				mileageHistory[i] =
 					MathFP.toInt(MathFP.div(MathFP.sub(record.getOdometer(), prevRec.getOdometer()), prevRec
 						.getVolume()));
 			}
+			mileageHistory[0] =
+				MathFP.toInt(MathFP.div(MathFP.sub(records[numRecs - 1].getOdometer(), records[0].getOdometer()),
+					totalFuel));
 		}else{
 			mileageHistory = null;
 		}
