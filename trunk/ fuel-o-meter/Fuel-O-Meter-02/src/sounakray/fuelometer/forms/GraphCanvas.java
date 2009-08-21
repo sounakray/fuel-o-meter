@@ -133,7 +133,7 @@ public class GraphCanvas extends AbstractFuelOMeterScreen {
 		// TODO: Test data to be removed.
 		// int[] x = { 53, 50, 42, 57, 60, 55, 45, 48, 52, 55, 58, 58 };
 		// System.out.println("load: " + System.currentTimeMillis());
-		mileageHistory = new FuelOMeterManager().getMileageHistory(); // FIXME : Must be converted to singleton.
+		mileageHistory = FuelOMeterManager.INSTANCE.getMileageHistory(); // FIXME : Must be converted to singleton.
 		// mileageHistory = x;
 		if(mileageHistory != null){
 			((Canvas) screen).repaint();

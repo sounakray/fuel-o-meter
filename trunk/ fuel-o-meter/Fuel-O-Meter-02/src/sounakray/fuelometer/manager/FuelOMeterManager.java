@@ -20,7 +20,15 @@ import sounakray.fuelometer.model.StatisticsData;
  * @author Sounak Ray
  */
 public final class FuelOMeterManager {
+	public static final FuelOMeterManager INSTANCE = new FuelOMeterManager();
 	final FuelOMeterDAO dao = new CachedRecordStoreDAOImpl();
+
+	/**
+	 * Constructor Description: Private constructor to enforce singleton behaviour.
+	 * @author Sounak Ray
+	 * @since Aug 22, 2009
+	 */
+	private FuelOMeterManager() {}
 
 	/**
 	 * Method Description:
