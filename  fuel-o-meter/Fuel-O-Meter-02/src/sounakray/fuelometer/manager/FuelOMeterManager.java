@@ -21,7 +21,8 @@ import sounakray.fuelometer.model.StatisticsData;
  */
 public final class FuelOMeterManager {
 	public static final FuelOMeterManager INSTANCE = new FuelOMeterManager();
-	final FuelOMeterDAO dao = new CachedRecordStoreDAOImpl();
+	public static final long DAY_DURATION = 86400000;
+	private static final FuelOMeterDAO dao = new CachedRecordStoreDAOImpl();
 
 	/**
 	 * Constructor Description: Private constructor to enforce singleton behaviour.
@@ -58,7 +59,6 @@ public final class FuelOMeterManager {
 	 */
 	public FillUp[] getAllRecords(){
 		final FillUp[] records = dao.getAllFillUpList();
-		// TODO: Move the sorting logic to here from the DAO layer.
 		return records;
 	}
 
@@ -87,8 +87,8 @@ public final class FuelOMeterManager {
 			stats = new StatisticsData();
 			stats.setStartDate(getFormattedDate(firstRec.getDate().getTime()));
 			stats.setEndDate(getFormattedDate(lastRec.getDate().getTime()));
-			stats.setTotalDays(String
-				.valueOf((lastRec.getDate().getTime() - firstRec.getDate().getTime()) / (86400000)));
+			stats.setTotalDays(String.valueOf((lastRec.getDate().getTime() - firstRec.getDate().getTime())
+					/ DAY_DURATION));
 			stats.setAverageMileage(MathFP.toString(avgMileage, 2));
 			stats.setAverageCostPerDist(MathFP.toString(MathFP.div(totalCost, totalDistance), 2));
 			stats.setFuelPer100Dist(MathFP.toString(MathFP.div(MathFP.toFP("100"), avgMileage), 2));
@@ -153,5 +153,33 @@ public final class FuelOMeterManager {
 		final Calendar c = Calendar.getInstance();
 		c.setTime(new Date(date));
 		return (c.get(Calendar.MONTH) + 1) + "/" + c.get(Calendar.DATE) + "/" + c.get(Calendar.YEAR);
+	}
+
+	/**
+	 * Method Description: Based on current statistics, calculates the estimated odometer reading, when the vehicle will
+	 * run out of fuel.
+	 * @return The estimated odometer reading.
+	 * @author Sounak Ray
+	 * @since Aug 22, 2009
+	 */
+	public String getNextFillUpEstimate(){
+		final String nextFillup;
+		final FillUp[] records = getAllRecords();
+		final int numRecs = records.length;
+		if(numRecs > 2){
+			final FillUp firstRec = records[0], lastRec = records[numRecs - 1];
+			int totalFuel = 0;
+			for(int i = 0; i < records.length - 1; i++){
+				totalFuel = MathFP.add(totalFuel, records[i].getVolume());
+			}
+			// int totalDays = (int) ((lastRec.getDate().getTime() - firstRec.getDate().getTime()) / DAY_DURATION);
+			// MathFP.mul(MathFP.div(totalDays, totalFuel), lastRec.getVolume()); // more days
+			nextFillup = // Next Fill up Odo-reading.
+				MathFP.toString(MathFP.add(lastRec.getOdometer(), MathFP.mul(lastRec.getVolume(), MathFP.div(MathFP
+					.sub(records[records.length - 1].getOdometer(), firstRec.getOdometer()), totalFuel))), 1);
+		}else{
+			nextFillup = null;
+		}
+		return nextFillup;
 	}
 }

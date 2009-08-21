@@ -15,7 +15,7 @@ public class FormSetup extends AbstractFuelOMeterScreen {
 
 	final Form form;
 	private final Command cmdMainMenu = new Command("Back", "Main Menu", Command.BACK, 0);
-	String[] strUnits = { "Kms/Hr", "Miles/Gallon" };
+	String[] strUnits = { "Kms/Ltr", "Miles/Gallon" };
 
 	public FormSetup(final FuelOMeter midlet) {
 		super(new Form("Set Format"), midlet);
