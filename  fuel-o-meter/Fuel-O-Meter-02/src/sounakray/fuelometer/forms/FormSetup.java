@@ -22,9 +22,9 @@ public class FormSetup extends AbstractFuelOMeterScreen {
 		form = (Form) screen;
 		form.addCommand(cmdMainMenu);
 		ChoiceGroup chcUnit = new ChoiceGroup("Select Unit", ChoiceGroup.EXCLUSIVE, strUnits, null);
-		// Command cmdResetData = new Command("Reset", "Reset Data", Command.OK, 0);
+		Command cmdResetData = new Command("Reset", "Reset Data", Command.OK, 0);
 		form.append(chcUnit);
-		// form.addCommand(cmdResetData);
+		form.addCommand(cmdResetData);
 
 	}
 
