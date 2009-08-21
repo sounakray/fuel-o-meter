@@ -26,10 +26,10 @@ public class GraphCanvas extends AbstractFuelOMeterScreen {
 
 	public GraphCanvas(final FuelOMeter midlet) {
 		super(new Canvas() {
-			final int margin = 10;
-			final int numEntries = 10;
-			final int graphDotSize = 6;
-			final int dotRadius = graphDotSize / 2;
+			private static final int MARGIN = 10;
+			final int numEntries = getWidth() < 240 ? 5 : 10;
+			private static final int DOT_DIAMTR = 6;
+			private static final int DOT_RADIUS = DOT_DIAMTR / 2;
 
 			/*
 			 * (non-Javadoc)
@@ -43,7 +43,7 @@ public class GraphCanvas extends AbstractFuelOMeterScreen {
 				g.setColor(255, 255, 255);
 				g.fillRect(0, 0, getWidth(), getHeight());
 
-				final int height = getHeight() - 2 * margin, width = getWidth() - 2 * margin;
+				final int height = getHeight() - 2 * MARGIN, width = getWidth() - 2 * MARGIN;
 				if(mileageHistory == null){
 					g.setColor(0, 0, 0);
 					g.drawString("Insufficient Data!", 0, getHeight() / 2, Graphics.BASELINE | Graphics.LEFT);
@@ -63,37 +63,37 @@ public class GraphCanvas extends AbstractFuelOMeterScreen {
 
 					g.setFont(Font.getFont(Font.FACE_PROPORTIONAL, Font.STYLE_PLAIN, Font.SIZE_SMALL));
 
-					int x1 = margin - x, x2, y1, y2;
+					int x1 = MARGIN - x, x2, y1, y2;
 					for(int i = minIndex + 1; i < mileageHistory.length; i++){
 						x1 += x;
-						y1 = (margin + y * (max - mileageHistory[i - 1]));
+						y1 = (MARGIN + y * (max - mileageHistory[i - 1]));
 						x2 = x1 + x;
-						y2 = (margin + y * (max - mileageHistory[i]));
+						y2 = (MARGIN + y * (max - mileageHistory[i]));
 						g.setColor(180, 180, 180);
 						g.setStrokeStyle(Graphics.DOTTED);
-						g.drawLine(x1, margin, x1, margin + height);
+						g.drawLine(x1, MARGIN, x1, MARGIN + height);
 
 						g.setColor(0, 0, 0);
-						g.drawString(String.valueOf(mileageHistory[i - 1]), x1 + dotRadius, y1, Graphics.TOP
+						g.drawString(String.valueOf(mileageHistory[i - 1]), x1 + DOT_RADIUS, y1, Graphics.TOP
 								| Graphics.LEFT);
 
 						g.setColor(0, 0, 255);
 						g.setStrokeStyle(Graphics.SOLID);
 						g.drawLine(x1, y1, x2, y2);
-						g.fillArc(x1 - dotRadius, y1 - dotRadius, graphDotSize, graphDotSize, 0, 360);
+						g.fillArc(x1 - DOT_RADIUS, y1 - DOT_RADIUS, DOT_DIAMTR, DOT_DIAMTR, 0, 360);
 					}
 					x1 += x;
 					g.setColor(180, 180, 180);
 					g.setStrokeStyle(Graphics.DOTTED);
-					g.drawLine((x1), margin, (x1), margin + height);
+					g.drawLine((x1), MARGIN, (x1), MARGIN + height);
 
 					// Average
 					g.setFont(Font.getFont(Font.FACE_SYSTEM, Font.STYLE_ITALIC, Font.SIZE_MEDIUM));
 					g.setColor(0, 0, 0);
 					g.setStrokeStyle(Graphics.DOTTED);
-					g.drawLine(margin / 2, (margin + y * (max - avgMileage)), (margin * 3 / 2 + width), (margin + y
+					g.drawLine(MARGIN / 2, (MARGIN + y * (max - avgMileage)), (MARGIN * 3 / 2 + width), (MARGIN + y
 							* (max - avgMileage)));
-					g.drawString("Avg:" + avgMileage, 0, (margin + y * (max - avgMileage)), Graphics.TOP
+					g.drawString("Avg:" + avgMileage, 0, (MARGIN + y * (max - avgMileage)), Graphics.TOP
 							| Graphics.LEFT);
 
 					// Last Mileage
@@ -103,10 +103,11 @@ public class GraphCanvas extends AbstractFuelOMeterScreen {
 					}else{
 						g.setColor(255, 0, 0);
 					}
-					g.drawString(String.valueOf(mileageHistory[mileageHistory.length - 1]), x1 - dotRadius, (margin + y
-							* (max - mileageHistory[mileageHistory.length - 1])), Graphics.TOP | Graphics.HCENTER);
-					g.fillArc(x1 - dotRadius, (margin + y * (max - mileageHistory[mileageHistory.length - 1]))
-							- dotRadius, graphDotSize, graphDotSize, 0, 360);
+					g.drawString(String.valueOf(mileageHistory[mileageHistory.length - 1]), x1 - DOT_RADIUS,
+						(MARGIN + y * (max - mileageHistory[mileageHistory.length - 1])), Graphics.TOP
+								| Graphics.HCENTER);
+					g.fillArc(x1 - DOT_RADIUS, (MARGIN + y * (max - mileageHistory[mileageHistory.length - 1]))
+							- DOT_RADIUS, DOT_DIAMTR, DOT_DIAMTR, 0, 360);
 				}
 			}
 		}, midlet);
