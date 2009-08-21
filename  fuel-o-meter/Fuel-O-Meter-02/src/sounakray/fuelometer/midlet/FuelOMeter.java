@@ -45,7 +45,7 @@ public final class FuelOMeter extends MIDlet implements CommandListener {
 	 */
 	public FuelOMeter() {
 		display = Display.getDisplay(this);
-		manager = new FuelOMeterManager();
+		manager = FuelOMeterManager.INSTANCE;
 
 		scrMainMenu = new ListMainMenu(this);
 		scrAddRec = new FormAddNewFillUp(this);
