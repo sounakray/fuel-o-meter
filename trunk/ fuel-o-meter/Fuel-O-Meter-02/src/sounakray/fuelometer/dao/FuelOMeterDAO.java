@@ -6,7 +6,7 @@
  * © Sounak Ray
  * email: sounakray@gmail.com
  */
-package sounakray.fuelometer.dao1;
+package sounakray.fuelometer.dao;
 
 import sounakray.fuelometer.model.FillUp;
 

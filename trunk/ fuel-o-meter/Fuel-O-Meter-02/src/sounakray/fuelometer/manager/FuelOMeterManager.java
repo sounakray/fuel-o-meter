@@ -12,8 +12,8 @@ import java.util.Calendar;
 import java.util.Date;
 import javax.microedition.lcdui.Command;
 import net.jscience.util.MathFP;
-import sounakray.fuelometer.dao1.CachedRecordStoreDAOImpl;
-import sounakray.fuelometer.dao1.FuelOMeterDAO;
+import sounakray.fuelometer.dao.CachedRecordStoreDAOImpl;
+import sounakray.fuelometer.dao.FuelOMeterDAO;
 import sounakray.fuelometer.model.FillUp;
 import sounakray.fuelometer.model.StatisticsData;
 

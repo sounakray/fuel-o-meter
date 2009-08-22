@@ -1,12 +1,12 @@
 /**
- * FuelOMeterRecordStoreDAOImpl.java
+ * CachedRecordStoreDAOImpl.java
  * Fuel-O-Meter-02
  * @version %I%, %G%
  * Date Aug 15, 2009
  * © Sounak Ray
  * email: sounakray@gmail.com
  */
-package sounakray.fuelometer.dao1;
+package sounakray.fuelometer.dao;
 
 import javax.microedition.rms.RecordComparator;
 import javax.microedition.rms.RecordEnumeration;
@@ -45,7 +45,8 @@ public final class CachedRecordStoreDAOImpl implements FuelOMeterDAO {
 				}, false);
 				allRecords = new FillUp[recordsEnum.numRecords()];
 				while (recordsEnum.hasNextElement()){
-					allRecords[index++] = new FillUp(recordsEnum.nextRecord()); // NOPMD by Sounak Ray on 8/22/09 2:23 PM
+					allRecords[index++] = new FillUp(recordsEnum.nextRecord()); // NOPMD by Sounak Ray on 8/22/09 2:23
+					// PM
 				}
 			}catch(Exception e){
 				allRecords = null; // NOPMD by Sounak Ray on 8/22/09 3:13 PM
