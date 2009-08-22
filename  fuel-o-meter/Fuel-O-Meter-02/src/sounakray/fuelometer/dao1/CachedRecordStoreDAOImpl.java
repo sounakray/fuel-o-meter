@@ -6,7 +6,7 @@
  * © Sounak Ray
  * email: sounakray@gmail.com
  */
-package sounakray.fuelometer.DAO;
+package sounakray.fuelometer.dao1;
 
 import javax.microedition.rms.RecordComparator;
 import javax.microedition.rms.RecordEnumeration;
@@ -33,28 +33,28 @@ public final class CachedRecordStoreDAOImpl implements FuelOMeterDAO {
 	 */
 	public FillUp[] getAllFillUpList(){
 		if(allRecords == null){
-			int i = 0;
-			RecordStore rs = null;
+			int index = 0;
+			RecordStore recordStore = null;
 			try{
-				rs = RecordStore.openRecordStore(RECORDSET_NAME, true);
-				final RecordEnumeration recordsEnumeration = rs.enumerateRecords(null, new RecordComparator() {
+				recordStore = RecordStore.openRecordStore(RECORDSET_NAME, true);
+				final RecordEnumeration recordsEnum = recordStore.enumerateRecords(null, new RecordComparator() {
 					public int compare(final byte[] rec1, final byte[] rec2){
 						final int result = new String(rec1).compareTo(new String(rec2));
 						return result == 0 ? EQUIVALENT : (result < 0 ? PRECEDES : FOLLOWS);
 					}
 				}, false);
-				allRecords = new FillUp[(recordsEnumeration.numRecords())];
-				while (recordsEnumeration.hasNextElement()){
-					allRecords[i++] = new FillUp(recordsEnumeration.nextRecord());
+				allRecords = new FillUp[recordsEnum.numRecords()];
+				while (recordsEnum.hasNextElement()){
+					allRecords[index++] = new FillUp(recordsEnum.nextRecord()); // NOPMD by Sounak Ray on 8/22/09 2:23 PM
 				}
 			}catch(Exception e){
-				allRecords = null;
+				allRecords = null; // NOPMD by Sounak Ray on 8/22/09 3:13 PM
 			}finally{
-				if(rs != null){
+				if(recordStore != null){
 					try{
-						rs.closeRecordStore();
+						recordStore.closeRecordStore();
 					}catch(RecordStoreException e){
-						allRecords = null;
+						allRecords = null; // NOPMD by Sounak Ray on 8/22/09 3:13 PM
 					}
 				}
 			}
@@ -70,17 +70,17 @@ public final class CachedRecordStoreDAOImpl implements FuelOMeterDAO {
 	public boolean saveFillUp(final FillUp fillUp){
 		boolean isSuccessful = true;
 		final byte[] record = fillUp.toByteArray();
-		RecordStore rs = null;
+		RecordStore recordsStore = null;
 		try{
-			rs = RecordStore.openRecordStore(RECORDSET_NAME, true);
-			rs.addRecord(record, 0, record.length);
+			recordsStore = RecordStore.openRecordStore(RECORDSET_NAME, true);
+			recordsStore.addRecord(record, 0, record.length);
 		}catch(RecordStoreException e){
 			isSuccessful = false;
 		}finally{
-			allRecords = null;
-			if(rs != null){
+			allRecords = null; // NOPMD by Sounak Ray on 8/22/09 3:13 PM
+			if(recordsStore != null){
 				try{
-					rs.closeRecordStore();
+					recordsStore.closeRecordStore();
 				}catch(RecordStoreException e){
 					isSuccessful = false;
 				}

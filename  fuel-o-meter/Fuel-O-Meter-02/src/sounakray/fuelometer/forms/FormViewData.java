@@ -10,6 +10,7 @@ package sounakray.fuelometer.forms;
 
 import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.List;
+import sounakray.fuelometer.manager.FuelOMeterManager;
 import sounakray.fuelometer.midlet.FuelOMeter;
 import sounakray.fuelometer.model.FillUp;
 
@@ -18,11 +19,11 @@ import sounakray.fuelometer.model.FillUp;
  */
 public class FormViewData extends AbstractFuelOMeterScreen {
 	// TODO: Make Singleton!
-	private final Command cmdMainMenu = new Command("Back", "Main Menu", Command.BACK, 0);
+	// private final Command cmdMainMenu = new Command("Back", "Main Menu", Command.BACK, 0);
 
 	public FormViewData(final FuelOMeter midlet) {
 		super(new List("All Fill-ups ", List.EXCLUSIVE), midlet);
-		screen.addCommand(cmdMainMenu);
+		screen.addCommand(FuelOMeterManager.CMD_MAIN_MENU);
 	}
 
 	/*
@@ -52,7 +53,7 @@ public class FormViewData extends AbstractFuelOMeterScreen {
 	 * @see com.sounakray.fuelometer.forms.AbstractForm#handleAction(javax.microedition .lcdui.Command)
 	 */
 	public void executeCommand(final Command command){
-		if(command == cmdMainMenu){
+		if(command == FuelOMeterManager.CMD_MAIN_MENU){
 			midlet.setDisplay(midlet.scrMainMenu, null);
 		}
 	}

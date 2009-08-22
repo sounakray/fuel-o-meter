@@ -26,17 +26,17 @@ import sounakray.fuelometer.forms.ListMainMenu;
 import sounakray.fuelometer.manager.FuelOMeterManager;
 
 public final class FuelOMeter extends MIDlet implements CommandListener {
-	private Display display;
-	private AbstractFuelOMeterScreen currentScreen;
+	private final transient Display display;
+	private transient AbstractFuelOMeterScreen currentScreen;
 
-	public final FuelOMeterManager manager;
-	public final AbstractFuelOMeterScreen scrMainMenu;
-	public final AbstractFuelOMeterScreen scrAddRec;
-	public final AbstractFuelOMeterScreen scrAbout;
-	public final AbstractFuelOMeterScreen scrViewData;
-	public final AbstractFuelOMeterScreen scrViewStats;
-	public final AbstractFuelOMeterScreen scrGraph;
-	public final AbstractFuelOMeterScreen scrSetup;
+	public transient final FuelOMeterManager manager;
+	public transient final AbstractFuelOMeterScreen scrMainMenu;
+	public transient final AbstractFuelOMeterScreen scrAddRec;
+	public transient final AbstractFuelOMeterScreen scrAbout;
+	public transient final AbstractFuelOMeterScreen scrViewData;
+	public transient final AbstractFuelOMeterScreen scrViewStats;
+	public transient final AbstractFuelOMeterScreen scrGraph;
+	public transient final AbstractFuelOMeterScreen scrSetup;
 
 	/**
 	 * Constructor Description: Default constructor for the MIDlet. Sets the display, and instantiates the manager.
@@ -44,6 +44,7 @@ public final class FuelOMeter extends MIDlet implements CommandListener {
 	 * @since Aug 16, 2009
 	 */
 	public FuelOMeter() {
+		super();
 		display = Display.getDisplay(this);
 		manager = FuelOMeterManager.INSTANCE;
 
@@ -106,14 +107,18 @@ public final class FuelOMeter extends MIDlet implements CommandListener {
 	 * @see javax.microedition.midlet.MIDlet#pauseApp()
 	 * @author Sounak Ray
 	 */
-	protected void pauseApp(){}
+	protected void pauseApp(){
+	// TODO: Should ideally release all resources.
+	}
 
 	/*
 	 * (non-Javadoc)
 	 * @see javax.microedition.midlet.MIDlet#destroyApp(boolean)
 	 * @author Sounak Ray
 	 */
-	protected void destroyApp(final boolean unconditional){}
+	protected void destroyApp(final boolean unconditional){
+	// TODO: Should release all resources and close
+	}
 
 	// /////////////////////////////////// Listener/Handler Methods ////////////////////////////////////////
 	/**
@@ -125,7 +130,7 @@ public final class FuelOMeter extends MIDlet implements CommandListener {
 	 * @see AbstractFuelOMeterScreen#executeCommand(Command)
 	 * @author Sounak Ray
 	 */
-	public void commandAction(final Command command, Displayable displayable){
+	public void commandAction(final Command command, final Displayable displayable){
 		currentScreen.executeCommand(command);
 	}
 }

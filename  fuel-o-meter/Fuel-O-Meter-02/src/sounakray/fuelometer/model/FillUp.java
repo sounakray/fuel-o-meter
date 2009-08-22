@@ -8,9 +8,9 @@
  */
 package sounakray.fuelometer.model;
 
-import java.util.Calendar;
 import java.util.Date;
 import net.jscience.util.MathFP;
+import sounakray.fuelometer.manager.FuelOMeterManager;
 
 /**
  * @author Sounak Ray
@@ -73,67 +73,63 @@ public final class FillUp {
 	}
 
 	public String toString(){
-		Calendar c = Calendar.getInstance();
-		c.setTime(date);
-		return (c.get(Calendar.MONTH) + 1) + "/" + c.get(Calendar.DATE) + "/" + c.get(Calendar.YEAR) + " :  "
-				+ MathFP.toString(odometer, 1) + "\n" + MathFP.toString(volume, 2) + " @ "
-				+ MathFP.toString(unitPrice, 2);
+		return FuelOMeterManager.INSTANCE.getFormattedDate(date.getTime()) + " : " + MathFP.toString(odometer, 1)
+				+ " [" + MathFP.toString(volume, 2) + " @ " + MathFP.toString(unitPrice, 2) + "]";
 	}
 
 	/**
 	 * @return the date
 	 */
-	public final Date getDate(){
+	public Date getDate(){
 		return this.date;
 	}
 
 	/**
 	 * @param date the date to set
 	 */
-	public final void setDate(Date date){
+	public void setDate(final Date date){
 		this.date = date;
 	}
 
 	/**
 	 * @return the odometer
 	 */
-	public final int getOdometer(){
+	public int getOdometer(){
 		return this.odometer;
 	}
 
 	/**
 	 * @param odometer the odometer to set
 	 */
-	public final void setOdometer(int odometer){
+	public void setOdometer(final int odometer){
 		this.odometer = odometer;
 	}
 
 	/**
 	 * @return the volume
 	 */
-	public final int getVolume(){
+	public int getVolume(){
 		return this.volume;
 	}
 
 	/**
 	 * @param volume the volume to set
 	 */
-	public final void setVolume(int volume){
+	public void setVolume(final int volume){
 		this.volume = volume;
 	}
 
 	/**
 	 * @return the unitPrice
 	 */
-	public final int getUnitPrice(){
+	public int getUnitPrice(){
 		return this.unitPrice;
 	}
 
 	/**
 	 * @param unitPrice the unitPrice to set
 	 */
-	public final void setUnitPrice(int unitPrice){
+	public void setUnitPrice(final int unitPrice){
 		this.unitPrice = unitPrice;
 	}
-
 }

@@ -10,9 +10,10 @@ package sounakray.fuelometer.manager;
 
 import java.util.Calendar;
 import java.util.Date;
+import javax.microedition.lcdui.Command;
 import net.jscience.util.MathFP;
-import sounakray.fuelometer.DAO.CachedRecordStoreDAOImpl;
-import sounakray.fuelometer.DAO.FuelOMeterDAO;
+import sounakray.fuelometer.dao1.CachedRecordStoreDAOImpl;
+import sounakray.fuelometer.dao1.FuelOMeterDAO;
 import sounakray.fuelometer.model.FillUp;
 import sounakray.fuelometer.model.StatisticsData;
 
@@ -21,8 +22,9 @@ import sounakray.fuelometer.model.StatisticsData;
  */
 public final class FuelOMeterManager {
 	public static final FuelOMeterManager INSTANCE = new FuelOMeterManager();
+	public static final Command CMD_MAIN_MENU = new Command("Back", "Main Menu", Command.BACK, 0);
 	public static final long DAY_DURATION = 86400000;
-	private static final FuelOMeterDAO dao = new CachedRecordStoreDAOImpl();
+	private static final FuelOMeterDAO DAO = new CachedRecordStoreDAOImpl();
 
 	/**
 	 * Constructor Description: Private constructor to enforce singleton behaviour.
@@ -44,7 +46,7 @@ public final class FuelOMeterManager {
 	public boolean saveRecord(final Date date, final String odometer, final String volume, final String unitPrice){
 		boolean isSuccessful = true;
 		try{
-			dao.saveFillUp(new FillUp(date, odometer, volume, unitPrice));
+			DAO.saveFillUp(new FillUp(date, odometer, volume, unitPrice));
 		}catch(final Exception e){
 			isSuccessful = false;
 		}
@@ -58,8 +60,9 @@ public final class FuelOMeterManager {
 	 * @since Aug 18, 2009
 	 */
 	public FillUp[] getAllRecords(){
-		final FillUp[] records = dao.getAllFillUpList();
-		return records;
+		return DAO.getAllFillUpList();
+		// final FillUp[] records = DAO.getAllFillUpList();
+		// return records;
 	}
 
 	/**
@@ -69,7 +72,7 @@ public final class FuelOMeterManager {
 	 * @since Aug 18, 2009
 	 */
 	public StatisticsData getStatistics(){
-		final StatisticsData stats;
+		StatisticsData stats = null;
 		final FillUp[] records = getAllRecords();
 		int totalFuel = 0, totalDistance, totalCost = 0;
 		final int numRecs = records.length;
@@ -90,18 +93,16 @@ public final class FuelOMeterManager {
 			stats.setTotalDays(String.valueOf((lastRec.getDate().getTime() - firstRec.getDate().getTime())
 					/ DAY_DURATION));
 			stats.setAverageMileage(MathFP.toString(avgMileage, 2));
-			stats.setAverageCostPerDist(MathFP.toString(MathFP.div(totalCost, totalDistance), 2));
+			stats.setAvgCostPerDist(MathFP.toString(MathFP.div(totalCost, totalDistance), 2));
 			stats.setFuelPer100Dist(MathFP.toString(MathFP.div(MathFP.toFP("100"), avgMileage), 2));
 			stats.setLastMileage(MathFP.toString(MathFP.div(MathFP
 				.sub(lastRec.getOdometer(), scndLastRec.getOdometer()), scndLastRec.getVolume()), 2));
 			stats.setTotalDistance(MathFP.toString(totalDistance, 1));
 			stats.setTotalFuelConsumed(MathFP.toString(totalFuel, 2));
 			stats.setTotalFuel(MathFP.toString(MathFP.add(totalFuel, lastRec.getVolume()), 2));
-			stats.setTotalMoneyConsumed(MathFP.toString(totalCost, 2));
+			stats.setTotalMoneyCnsmd(MathFP.toString(totalCost, 2));
 			stats.setTotalMoney(MathFP.toString(MathFP.add(totalCost, MathFP.mul(lastRec.getVolume(), lastRec
 				.getUnitPrice())), 2));
-		}else{
-			stats = null;
 		}
 		return stats;
 	}
@@ -116,7 +117,7 @@ public final class FuelOMeterManager {
 	 * @since Aug 19, 2009
 	 */
 	public int[] getMileageHistory(){
-		final int[] mileageHistory;
+		int[] mileageHistory = null;
 		final FillUp[] records = getAllRecords();
 		final int numRecs = records.length;
 		int totalCost = 0, totalFuel = 0;
@@ -136,8 +137,6 @@ public final class FuelOMeterManager {
 			mileageHistory[0] =
 				MathFP.toInt(MathFP.div(MathFP.sub(records[numRecs - 1].getOdometer(), records[0].getOdometer()),
 					totalFuel));
-		}else{
-			mileageHistory = null;
 		}
 		return mileageHistory;
 	}
@@ -150,9 +149,10 @@ public final class FuelOMeterManager {
 	 * @since Aug 16, 2009
 	 */
 	public String getFormattedDate(final long date){
-		final Calendar c = Calendar.getInstance();
-		c.setTime(new Date(date));
-		return (c.get(Calendar.MONTH) + 1) + "/" + c.get(Calendar.DATE) + "/" + c.get(Calendar.YEAR);
+		final Calendar calendar = Calendar.getInstance();
+		calendar.setTime(new Date(date));
+		return (calendar.get(Calendar.MONTH) + 1) + "/" + calendar.get(Calendar.DATE) + "/"
+				+ calendar.get(Calendar.YEAR);
 	}
 
 	/**
@@ -163,7 +163,7 @@ public final class FuelOMeterManager {
 	 * @since Aug 22, 2009
 	 */
 	public String getNextFillUpEstimate(){
-		final String nextFillup;
+		String nextFillup = null;
 		final FillUp[] records = getAllRecords();
 		final int numRecs = records.length;
 		if(numRecs > 2){
@@ -177,8 +177,6 @@ public final class FuelOMeterManager {
 			nextFillup = // Next Fill up Odo-reading.
 				MathFP.toString(MathFP.add(lastRec.getOdometer(), MathFP.mul(lastRec.getVolume(), MathFP.div(MathFP
 					.sub(records[records.length - 1].getOdometer(), firstRec.getOdometer()), totalFuel))), 1);
-		}else{
-			nextFillup = null;
 		}
 		return nextFillup;
 	}

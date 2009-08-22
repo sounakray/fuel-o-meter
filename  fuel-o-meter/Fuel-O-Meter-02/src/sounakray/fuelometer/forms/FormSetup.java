@@ -6,37 +6,22 @@ package sounakray.fuelometer.forms;
 import javax.microedition.lcdui.ChoiceGroup;
 import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.Form;
+import sounakray.fuelometer.manager.FuelOMeterManager;
 import sounakray.fuelometer.midlet.FuelOMeter;
 
 /**
  * @author Marshneil
  */
 public class FormSetup extends AbstractFuelOMeterScreen {
-
-	final Form form;
-	private final Command cmdMainMenu = new Command("Back", "Main Menu", Command.BACK, 0);
-	String[] strUnits = { "Kms/Ltr", "Miles/Gallon" };
-
+	/**
+	 * Constructor Description:
+	 * @param midlet
+	 * @author Sounak Ray
+	 * @since Aug 22, 2009
+	 */
 	public FormSetup(final FuelOMeter midlet) {
 		super(new Form("Set Format"), midlet);
-		form = (Form) screen;
-		form.addCommand(cmdMainMenu);
-		ChoiceGroup chcUnit = new ChoiceGroup("Select Unit", ChoiceGroup.EXCLUSIVE, strUnits, null);
-		Command cmdResetData = new Command("Reset", "Reset Data", Command.OK, 0);
-		form.append(chcUnit);
-		form.addCommand(cmdResetData);
-
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see sounakray.fuelometer.forms.AbstractFuelOMeterScreen#executeCommand(javax .microedition.lcdui.Command)
-	 */
-	public void executeCommand(Command cmd){
-		if(cmd == cmdMainMenu){
-			midlet.setDisplay(midlet.scrMainMenu, null);
-		}
-
+		((Form) screen).addCommand(FuelOMeterManager.CMD_MAIN_MENU);
 	}
 
 	/*
@@ -44,8 +29,11 @@ public class FormSetup extends AbstractFuelOMeterScreen {
 	 * @see sounakray.fuelometer.forms.AbstractFuelOMeterScreen#loadScreen()
 	 */
 	public void loadScreen(){
-	// TODO Auto-generated method stub
-
+		final Form form = (Form) screen;
+		final Command cmdResetData = new Command("Reset", "Reset Data", Command.OK, 0);
+		form.addCommand(cmdResetData);
+		form.append(new ChoiceGroup("Select Unit", ChoiceGroup.EXCLUSIVE, new String[] { "Kms/Ltr", "Miles/Gallon" },
+			null));
 	}
 
 	/*
@@ -53,7 +41,17 @@ public class FormSetup extends AbstractFuelOMeterScreen {
 	 * @see sounakray.fuelometer.forms.AbstractFuelOMeterScreen#unloadScreen()
 	 */
 	public void unloadScreen(){
-	// TODO Auto-generated method stub
+		((Form) screen).deleteAll();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see sounakray.fuelometer.forms.AbstractFuelOMeterScreen#executeCommand(javax .microedition.lcdui.Command)
+	 */
+	public void executeCommand(final Command command){
+		if(command == FuelOMeterManager.CMD_MAIN_MENU){
+			midlet.setDisplay(midlet.scrMainMenu, null);
+		}
 
 	}
 
