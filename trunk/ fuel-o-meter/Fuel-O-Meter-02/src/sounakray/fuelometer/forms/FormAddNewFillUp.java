@@ -15,6 +15,7 @@ import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.DateField;
 import javax.microedition.lcdui.Form;
 import javax.microedition.lcdui.TextField;
+import sounakray.fuelometer.manager.FuelOMeterManager;
 import sounakray.fuelometer.midlet.FuelOMeter;
 
 /**
@@ -23,18 +24,42 @@ import sounakray.fuelometer.midlet.FuelOMeter;
 public final class FormAddNewFillUp extends AbstractFuelOMeterScreen {
 	// TODO: Make Singleton!
 
-	final Form form;
-	private final Command cmdMainMenu = new Command("Back", "Main Menu", Command.BACK, 0);
-	private final Command cmdSaveRec = new Command("Save", "Save >>", Command.SCREEN, 1);
-	private final TextField txtOdometer, txtVolume, txtRate;
-	private final DateField dtfFillupDate;
+	// private transient final Form form;
+	// private final Command cmdMainMenu = new Command("Back", "Main Menu", Command.BACK, 0);
+	private static final Command CMD_SAVE = new Command("Save", "Save >>", Command.SCREEN, 1);
+	private transient TextField txtOdometer, txtVolume, txtRate;
+	private transient DateField dtfFillupDate;
 
 	public FormAddNewFillUp(final FuelOMeter midlet) {
 		super(new Form("Add New Record"), midlet);
-		form = (Form) screen;
+		final Form form = (Form) screen;
+		// form.append("Fillup Details");
+		//
+		// dtfFillupDate = new DateField("Fillup Date: ", DateField.DATE);
+		// dtfFillupDate.setDate(new Date());
+		// txtOdometer = new TextField("Odometer Reading: ", "0.0", 7, TextField.DECIMAL);
+		// txtVolume = new TextField("Fillup Volume: ", "0.0", 5, TextField.DECIMAL);
+		// txtRate = new TextField("Rate : ", "0.0", 5, TextField.DECIMAL);
+		//
+		// form.append(dtfFillupDate);
+		// form.append(txtOdometer);
+		// form.append(txtVolume);
+		// form.append(txtRate);
+
+		form.addCommand(FuelOMeterManager.CMD_MAIN_MENU);
+		form.addCommand(CMD_SAVE);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see sounakray.fuelometer.forms.AbstractFuelOMeterScreen#refreshScreen()
+	 * @author Sounak Ray
+	 */
+	public void loadScreen(){
+		final Form form = (Form) screen;
 		form.append("Fillup Details");
 
-		dtfFillupDate = new DateField("Fillup Date: ", DateField.DATE);
+		dtfFillupDate = new DateField("Fill-up Date: ", DateField.DATE);
 		dtfFillupDate.setDate(new Date());
 		txtOdometer = new TextField("Odometer Reading: ", "0.0", 7, TextField.DECIMAL);
 		txtVolume = new TextField("Fillup Volume: ", "0.0", 5, TextField.DECIMAL);
@@ -45,17 +70,7 @@ public final class FormAddNewFillUp extends AbstractFuelOMeterScreen {
 		form.append(txtVolume);
 		form.append(txtRate);
 
-		form.addCommand(cmdMainMenu);
-		form.addCommand(cmdSaveRec);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see sounakray.fuelometer.forms.AbstractFuelOMeterScreen#refreshScreen()
-	 * @author Sounak Ray
-	 */
-	public void loadScreen(){
-		dtfFillupDate.setDate(new Date());
+		// dtfFillupDate.setDate(new Date());
 	}
 
 	/*
@@ -63,16 +78,18 @@ public final class FormAddNewFillUp extends AbstractFuelOMeterScreen {
 	 * @see sounakray.fuelometer.forms.AbstractFuelOMeterScreen#unloadScreen()
 	 * @author Sounak Ray
 	 */
-	public void unloadScreen(){}
+	public void unloadScreen(){
+		((Form) screen).deleteAll();
+	}
 
 	/*
 	 * (non-Javadoc)
 	 * @see com.sounakray.fuelometer.forms.AbstractForm#handleAction(javax.microedition .lcdui.Command)
 	 */
-	public void executeCommand(final Command c){
-		if(c == cmdMainMenu){
+	public void executeCommand(final Command command){
+		if(command == FuelOMeterManager.CMD_MAIN_MENU){
 			midlet.setDisplay(midlet.scrMainMenu, null);
-		}else if(c == cmdSaveRec){
+		}else if(command == CMD_SAVE){ // NOPMD by Sounak Ray on 8/22/09 2:49 PM
 			final Alert alert =
 				(midlet.manager.saveRecord(dtfFillupDate.getDate(), txtOdometer.getString(), txtVolume.getString(),
 					txtRate.getString())) ? new Alert("Saved", "Fill-up data saved successfully!", null,

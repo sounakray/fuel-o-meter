@@ -5,7 +5,7 @@
       <alias/>
    </signing>
    <configurations>
-      <configuration active="false" name="DefaultCldcPhone1">
+      <configuration active="true" name="DefaultCldcPhone1">
          <device group="Java(TM) Platform Micro Edition SDK 3.0" name="DefaultCldcPhone1"/>
          <symbolSet name="DefaultCldcPhone1">
             <symbol name="MMAPI" value="1.1"/>
@@ -37,7 +37,7 @@
             <symbol name="screen.height" value="320"/>
          </symbolSet>
       </configuration>
-      <configuration active="true" name="ClamshellCldcPhone1">
+      <configuration active="false" name="ClamshellCldcPhone1">
          <device group="Java(TM) Platform Micro Edition SDK 3.0" name="ClamshellCldcPhone1"/>
          <symbolSet name="ClamshellCldcPhone1">
             <symbol name="MMAPI" value="1.1"/>

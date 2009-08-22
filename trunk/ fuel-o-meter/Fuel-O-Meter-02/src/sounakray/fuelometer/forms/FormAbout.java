@@ -10,6 +10,7 @@ package sounakray.fuelometer.forms;
 
 import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.Form;
+import sounakray.fuelometer.manager.FuelOMeterManager;
 import sounakray.fuelometer.midlet.FuelOMeter;
 
 /**
@@ -18,11 +19,11 @@ import sounakray.fuelometer.midlet.FuelOMeter;
 public final class FormAbout extends AbstractFuelOMeterScreen {
 	// TODO: Make Singleton!
 
-	private final Command cmdMainMenu = new Command("Back", "Main Menu", Command.BACK, 0);
+	// private final Command cmdMainMenu = new Command("Back", "Main Menu", Command.BACK, 0);
 
 	public FormAbout(final FuelOMeter midlet) {
 		super(new Form("About Fuel-O-Meter"), midlet);
-		((Form) screen).addCommand(cmdMainMenu);
+		((Form) screen).addCommand(FuelOMeterManager.CMD_MAIN_MENU);
 	}
 
 	/*
@@ -31,6 +32,7 @@ public final class FormAbout extends AbstractFuelOMeterScreen {
 	 * @author Sounak Ray
 	 */
 	public void loadScreen(){
+		((Form) screen).append("Designed and written by : Sounak Ray");
 		((Form) screen)
 			.append("    This application has been developed as a part of my hobby programming, and is not to be "
 					+ "distributed commercially. It is made available without any warranty or guarantee, and "
@@ -50,10 +52,9 @@ public final class FormAbout extends AbstractFuelOMeterScreen {
 	 * (non-Javadoc)
 	 * @see com.sounakray.fuelometer.forms.AbstractForm#handleAction(javax.microedition .lcdui.Command)
 	 */
-	public void executeCommand(final Command c){
-		if(c == cmdMainMenu){
+	public void executeCommand(final Command command){
+		if(command == FuelOMeterManager.CMD_MAIN_MENU){
 			midlet.setDisplay(midlet.scrMainMenu, null);
 		}
 	}
-
 }

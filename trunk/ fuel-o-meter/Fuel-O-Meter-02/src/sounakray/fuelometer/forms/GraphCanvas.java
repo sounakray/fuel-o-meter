@@ -24,6 +24,12 @@ public class GraphCanvas extends AbstractFuelOMeterScreen {
 	private final Command cmdMainMenu = new Command("Back", "Main Menu", Command.BACK, 0);
 	private static int[] mileageHistory;
 
+	/**
+	 * Constructor Description:
+	 * @param midlet
+	 * @author Sounak Ray
+	 * @since Aug 19, 2009
+	 */
 	public GraphCanvas(final FuelOMeter midlet) {
 		super(new Canvas() {
 			private static final int MARGIN = 10;
@@ -132,10 +138,8 @@ public class GraphCanvas extends AbstractFuelOMeterScreen {
 	 */
 	public void loadScreen(){
 		// TODO: Test data to be removed.
-		// int[] x = { 53, 50, 42, 57, 60, 55, 45, 48, 52, 55, 58, 58 };
-		// System.out.println("load: " + System.currentTimeMillis());
-		mileageHistory = FuelOMeterManager.INSTANCE.getMileageHistory(); // FIXME : Must be converted to singleton.
-		// mileageHistory = x;
+		// mileageHistory = new int[] { 53, 50, 42, 57, 60, 55, 45, 48, 52, 55, 58, 58 };
+		mileageHistory = FuelOMeterManager.INSTANCE.getMileageHistory();
 		if(mileageHistory != null){
 			((Canvas) screen).repaint();
 		}

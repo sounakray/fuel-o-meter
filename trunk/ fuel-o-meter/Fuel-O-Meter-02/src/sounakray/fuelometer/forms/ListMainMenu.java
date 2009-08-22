@@ -17,7 +17,7 @@ import sounakray.fuelometer.midlet.FuelOMeter;
  */
 public final class ListMainMenu extends AbstractFuelOMeterScreen {
 	// TODO: Make Singleton!
-	private final Command cmdExit = new Command("Exit", Command.EXIT, 0);
+	private transient final Command cmdExit = new Command("Exit", Command.EXIT, 0);
 
 	public ListMainMenu(final FuelOMeter midlet) {
 		super(new List("Main Menu: ", List.IMPLICIT), midlet);
@@ -77,7 +77,7 @@ public final class ListMainMenu extends AbstractFuelOMeterScreen {
 				break;
 			default:
 			}
-		}else if(command == cmdExit){
+		}else if(command == cmdExit){ // NOPMD by Sounak Ray on 8/22/09 2:09 PM
 			midlet.exitMIDlet();
 		}
 	}

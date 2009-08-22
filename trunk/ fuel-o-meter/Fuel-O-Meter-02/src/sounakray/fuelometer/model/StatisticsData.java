@@ -19,11 +19,11 @@ public final class StatisticsData {
 	private String totalDistance = "";
 	private String totalDays = "";
 	private String totalFuelConsumed = "";
-	private String totalMoneyConsumed = "";
+	private String totalMoneyCnsmd = "";
 	private String totalFuel = "";
 	private String totalMoney = "";
 	private String fuelPer100Dist = "";
-	private String averageCostPerDist = "";
+	private String avgCostPerDist = "";
 
 	private static final String UNIT_DIST_SHORT = "Km";
 	private static final String UNIT_VOL_SHORT = "ltr";
@@ -32,168 +32,168 @@ public final class StatisticsData {
 	/**
 	 * @return the startDate
 	 */
-	public final String getStartDate(){
+	public String getStartDate(){
 		return this.startDate;
 	}
 
 	/**
 	 * @param startDate the startDate to set
 	 */
-	public final void setStartDate(String startDate){
+	public void setStartDate(final String startDate){
 		this.startDate = startDate;
 	}
 
 	/**
 	 * @return the endDate
 	 */
-	public final String getEndDate(){
+	public String getEndDate(){
 		return this.endDate;
 	}
 
 	/**
 	 * @param endDate the endDate to set
 	 */
-	public final void setEndDate(String endDate){
+	public void setEndDate(final String endDate){
 		this.endDate = endDate;
 	}
 
 	/**
 	 * @return the averageMileage
 	 */
-	public final String getAverageMileage(){
+	public String getAverageMileage(){
 		return this.averageMileage + ' ' + UNIT_DIST_SHORT + '/' + UNIT_VOL_SHORT;
 	}
 
 	/**
 	 * @param averageMileage the averageMileage to set
 	 */
-	public final void setAverageMileage(String averageMileage){
+	public void setAverageMileage(final String averageMileage){
 		this.averageMileage = averageMileage;
 	}
 
 	/**
 	 * @return the lastMileage
 	 */
-	public final String getLastMileage(){
+	public String getLastMileage(){
 		return this.lastMileage + ' ' + UNIT_DIST_SHORT + '/' + UNIT_VOL_SHORT;
 	}
 
 	/**
 	 * @param lastMileage the lastMileage to set
 	 */
-	public final void setLastMileage(String lastMileage){
+	public void setLastMileage(final String lastMileage){
 		this.lastMileage = lastMileage;
 	}
 
 	/**
 	 * @return the totalDistance
 	 */
-	public final String getTotalDistance(){
+	public String getTotalDistance(){
 		return this.totalDistance + ' ' + UNIT_DIST_SHORT;
 	}
 
 	/**
 	 * @param totalDistance the totalDistance to set
 	 */
-	public final void setTotalDistance(String totalDistance){
+	public void setTotalDistance(final String totalDistance){
 		this.totalDistance = totalDistance;
 	}
 
 	/**
 	 * @return the totalDays
 	 */
-	public final String getTotalDays(){
+	public String getTotalDays(){
 		return this.totalDays + " days";
 	}
 
 	/**
 	 * @param totalDays the totalDays to set
 	 */
-	public final void setTotalDays(String totalDays){
+	public void setTotalDays(final String totalDays){
 		this.totalDays = totalDays;
 	}
 
 	/**
 	 * @return the totalFuelConsumed
 	 */
-	public final String getTotalFuelConsumed(){
+	public String getTotalFuelConsumed(){
 		return this.totalFuelConsumed + ' ' + UNIT_VOL_SHORT;
 	}
 
 	/**
 	 * @param totalFuelConsumed the totalFuelConsumed to set
 	 */
-	public final void setTotalFuelConsumed(String totalFuelConsumed){
+	public void setTotalFuelConsumed(final String totalFuelConsumed){
 		this.totalFuelConsumed = totalFuelConsumed;
 	}
 
 	/**
 	 * @return the totalMoneyConsumed
 	 */
-	public final String getTotalMoneyConsumed(){
-		return CURRENCY + this.totalMoneyConsumed;
+	public String getTotalMoneyCnsmd(){
+		return CURRENCY + this.totalMoneyCnsmd;
 	}
 
 	/**
-	 * @param totalMoneyConsumed the totalMoneyConsumed to set
+	 * @param totalMoneyCnsmd the totalMoneyConsumed to set
 	 */
-	public final void setTotalMoneyConsumed(String totalMoneyConsumed){
-		this.totalMoneyConsumed = totalMoneyConsumed;
+	public void setTotalMoneyCnsmd(final String totalMoneyCnsmd){
+		this.totalMoneyCnsmd = totalMoneyCnsmd;
 	}
 
 	/**
 	 * @return the totalFuel
 	 */
-	public final String getTotalFuel(){
+	public String getTotalFuel(){
 		return this.totalFuel + ' ' + UNIT_VOL_SHORT;
 	}
 
 	/**
 	 * @param totalFuel the totalFuel to set
 	 */
-	public final void setTotalFuel(String totalFuel){
+	public void setTotalFuel(final String totalFuel){
 		this.totalFuel = totalFuel;
 	}
 
 	/**
 	 * @return the totalMoney
 	 */
-	public final String getTotalMoney(){
+	public String getTotalMoney(){
 		return CURRENCY + this.totalMoney;
 	}
 
 	/**
 	 * @param totalMoney the totalMoney to set
 	 */
-	public final void setTotalMoney(String totalMoney){
+	public void setTotalMoney(final String totalMoney){
 		this.totalMoney = totalMoney;
 	}
 
 	/**
 	 * @return the fuelPer100Dist
 	 */
-	public final String getFuelPer100Dist(){
+	public String getFuelPer100Dist(){
 		return this.fuelPer100Dist;
 	}
 
 	/**
 	 * @param fuelPer100Dist the fuelPer100Dist to set
 	 */
-	public final void setFuelPer100Dist(String fuelPer100Dist){
+	public void setFuelPer100Dist(final String fuelPer100Dist){
 		this.fuelPer100Dist = fuelPer100Dist;
 	}
 
 	/**
 	 * @return the averageCostPerDist
 	 */
-	public final String getAverageCostPerDist(){
-		return CURRENCY + this.averageCostPerDist;
+	public String getAvgCostPerDist(){
+		return CURRENCY + this.avgCostPerDist;
 	}
 
 	/**
-	 * @param averageCostPerDist the averageCostPerDist to set
+	 * @param avgCostPerDist the averageCostPerDist to set
 	 */
-	public final void setAverageCostPerDist(String averageCostPerDist){
-		this.averageCostPerDist = averageCostPerDist;
+	public void setAvgCostPerDist(final String avgCostPerDist){
+		this.avgCostPerDist = avgCostPerDist;
 	}
 }

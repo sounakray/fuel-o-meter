@@ -18,8 +18,8 @@ import sounakray.fuelometer.midlet.FuelOMeter;
  * @since Aug 16, 2009
  */
 public abstract class AbstractFuelOMeterScreen {
-	protected final FuelOMeter midlet;
-	protected final Displayable screen;
+	protected transient final FuelOMeter midlet;
+	protected transient final Displayable screen;
 
 	/**
 	 * Constructor Description: The only constructor. Mandates setting the screen and the MIDlet. Appends the
