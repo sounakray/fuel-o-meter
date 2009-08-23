@@ -34,23 +34,38 @@ public final class FuelOMeterManager {
 	private FuelOMeterManager() {}
 
 	/**
-	 * Method Description:
-	 * @param date
-	 * @param odometer
-	 * @param volume
-	 * @param unitPrice
-	 * @return
+	 * Method Description: This message saves the passed {@link FillUp} bean, and returns an appropriate message to be
+	 * displayed on the alert screen. <br>
+	 * It also displays the calculated mileage since the last fill-up.<br>
+	 * If any exception occurs while saving, it'll return an appropriate message that will start with the string
+	 * "ERROR:"
+	 * @param fillUp The current feel up bean passed.
+	 * @return The message string with appropriate message.
 	 * @author Sounak Ray
-	 * @since Aug 18, 2009
+	 * @since Aug 24, 2009
+	 * @see link FuelOMeterManager#calculateSingleMileage(FillUp, FillUp)
 	 */
-	public boolean saveRecord(final Date date, final String odometer, final String volume, final String unitPrice){
-		boolean isSuccessful = true;
+	public String saveRecord(final FillUp fillUp){
+		String message;
+		final StringBuffer strBuffer = new StringBuffer(104);
+		final FillUp lastFillUp = getLastFillUp();
+		strBuffer.append("Fill-up data saved successfully!\n");
 		try{
-			DAO.saveFillUp(new FillUp(date, odometer, volume, unitPrice));
+			if(getRecordsCount() > 0){
+				strBuffer.append("The last mileage between ");
+				strBuffer.append(getFormattedDate(lastFillUp.getDate().getTime()));
+				strBuffer.append(" and ");
+				strBuffer.append(getFormattedDate(fillUp.getDate().getTime()));
+				strBuffer.append(" is : ");
+				strBuffer.append(MathFP.toString(calculateSingleMileage(lastFillUp, fillUp), 2));
+				strBuffer.append(" Km/ltr");
+			}
+			DAO.saveFillUp(fillUp);
+			message = strBuffer.toString();
 		}catch(final Exception e){
-			isSuccessful = false;
+			message = "ERROR: Save Unsuccessful!\n" + e.getMessage();
 		}
-		return isSuccessful;
+		return message;
 	}
 
 	/**
@@ -214,13 +229,13 @@ public final class FuelOMeterManager {
 		final FillUp lastFillUp = getLastFillUp();
 		String errorMsg = null;
 		if(thisFillUp.getDate().getTime() <= lastFillUp.getDate().getTime()){
-			errorMsg = "Date must be greater than that of the last entry. ";
-		}else if(thisFillUp.getVolume() <= 0){
-			errorMsg = "Fill up quantity cannot be zero or negative. ";
+			errorMsg = "Date must be greater than " + getFormattedDate(lastFillUp.getDate().getTime());
 		}else if(thisFillUp.getOdometer() <= lastFillUp.getOdometer()){
-			errorMsg = "Odometer reading must be greater than that of the last entry. ";
+			errorMsg = "Odometer reading must be greater than " + MathFP.toString(lastFillUp.getOdometer(), 1);
+		}else if(thisFillUp.getVolume() <= 0){
+			errorMsg = "Fill up quantity must be greater than zero. ";
 		}else if(thisFillUp.getUnitPrice() <= 0){
-			errorMsg = "The fuel price cannot be zero or negative. ";
+			errorMsg = "The fuel unit price must be greater than zero. ";
 		}
 		return errorMsg;
 	}
