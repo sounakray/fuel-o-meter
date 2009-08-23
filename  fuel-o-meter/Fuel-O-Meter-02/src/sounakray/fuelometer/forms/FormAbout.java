@@ -32,7 +32,7 @@ public final class FormAbout extends AbstractFuelOMeterScreen {
 	 * @author Sounak Ray
 	 */
 	public void loadScreen(){
-		((Form) screen).append("Designed and written by : Sounak Ray");
+		((Form) screen).append("Designed and Devloped by : Sounak Ray");
 		((Form) screen)
 			.append("    This application has been developed as a part of my hobby programming, and is not to be "
 					+ "distributed commercially. It is made available without any warranty or guarantee, and "

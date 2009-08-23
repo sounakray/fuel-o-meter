@@ -163,10 +163,10 @@ public final class FuelOMeterManager {
 	 * @since Aug 22, 2009
 	 */
 	public String getNextFillUpEstimate(){
-		String nextFillup = null;
+		String nextFillup = "00000.0";
 		final FillUp[] records = getAllRecords();
 		final int numRecs = records.length;
-		if(numRecs > 2){
+		if(numRecs > 1){
 			final FillUp firstRec = records[0], lastRec = records[numRecs - 1];
 			int totalFuel = 0;
 			for(int i = 0; i < records.length - 1; i++){
@@ -179,5 +179,61 @@ public final class FuelOMeterManager {
 					.sub(records[records.length - 1].getOdometer(), firstRec.getOdometer()), totalFuel))), 1);
 		}
 		return nextFillup;
+	}
+
+	/**
+	 * Method Description: Returns the last {@link FillUp} details fed.
+	 * @return The last FillUp
+	 * @author Sounak Ray
+	 * @since Aug 22, 2009
+	 */
+	public FillUp getLastFillUp(){
+		final FillUp[] allRecords = getAllRecords();
+		return allRecords == null || allRecords.length == 0 ? new FillUp() : allRecords[allRecords.length - 1];
+	}
+
+	/**
+	 * Method Description: Returns the total number of fill-ups available in the database.
+	 * @return 0 if the data store is not present; the number of records, otherwise.
+	 * @author Sounak Ray
+	 * @since Aug 22, 2009
+	 */
+	public int getRecordsCount(){
+		final FillUp[] allRecords = getAllRecords();
+		return allRecords == null ? 0 : allRecords.length;
+	}
+
+	/**
+	 * Method Description:
+	 * @param thisFillUp
+	 * @return
+	 * @author Sounak Ray
+	 * @since Aug 22, 2009
+	 */
+	public String validateNewFillUp(final FillUp thisFillUp){
+		final FillUp lastFillUp = getLastFillUp();
+		String errorMsg = null;
+		if(thisFillUp.getDate().getTime() <= lastFillUp.getDate().getTime()){
+			errorMsg = "Date must be greater than that of the last entry. ";
+		}else if(thisFillUp.getVolume() <= 0){
+			errorMsg = "Fill up quantity cannot be zero or negative. ";
+		}else if(thisFillUp.getOdometer() <= lastFillUp.getOdometer()){
+			errorMsg = "Odometer reading must be greater than that of the last entry. ";
+		}else if(thisFillUp.getUnitPrice() <= 0){
+			errorMsg = "The fuel price cannot be zero or negative. ";
+		}
+		return errorMsg;
+	}
+
+	/**
+	 * Method Description:
+	 * @param fillUp1
+	 * @param fillUp2
+	 * @return
+	 * @author Sounak Ray
+	 * @since Aug 23, 2009
+	 */
+	public int calculateSingleMileage(final FillUp fillUp1, final FillUp fillUp2){
+		return MathFP.div(MathFP.sub(fillUp2.getOdometer(), fillUp1.getOdometer()), fillUp1.getVolume());
 	}
 }
