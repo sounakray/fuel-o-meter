@@ -17,11 +17,20 @@ import sounakray.fuelometer.manager.FuelOMeterManager;
  */
 public final class FillUp {
 	private Date date;
-	private int odometer;
-	private int volume;
-	private int unitPrice;
+	private int odometer = 0;
+	private int volume = 0;
+	private int unitPrice = 0;
 
 	private static final String DELIMITER = "|";
+
+	/**
+	 * Constructor Description: Default no argument constructor.
+	 * @author Sounak Ray
+	 * @since Aug 23, 2009
+	 */
+	public FillUp() {
+		this.date = new Date(0);
+	}
 
 	/**
 	 * Constructor Description: Constructs a new bean from the individual values provided. <br/>

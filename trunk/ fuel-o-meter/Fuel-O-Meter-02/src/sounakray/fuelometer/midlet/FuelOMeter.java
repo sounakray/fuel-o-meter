@@ -82,6 +82,10 @@ public final class FuelOMeter extends MIDlet implements CommandListener {
 		}
 	}
 
+	public void showAlert(final Alert alert){
+		display.setCurrent(alert);
+	}
+
 	/**
 	 * Method Description: Shuts down the MIDlet application.
 	 * @author Sounak Ray

@@ -19,8 +19,6 @@ import sounakray.fuelometer.model.StatisticsData;
  */
 public class FormViewStatistics extends AbstractFuelOMeterScreen {
 	// TODO: Make Singleton!
-	// private final Command cmdMainMenu = new Command("Back", "Main Menu", Command.BACK, 0);
-
 	public FormViewStatistics(final FuelOMeter midlet) {
 		super(new Form("Statistics"), midlet);
 		screen.addCommand(FuelOMeterManager.CMD_MAIN_MENU);
