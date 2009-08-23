@@ -70,20 +70,18 @@ public final class FuelOMeter extends MIDlet implements CommandListener {
 	 * @see AbstractFuelOMeterScreen#unloadScreen()
 	 */
 	public void setDisplay(final AbstractFuelOMeterScreen screen, final Alert alert){
-		if(currentScreen != null){
-			currentScreen.unloadScreen();
+		if(currentScreen != screen){ // NOPMD by Sounak Ray on 8/24/09 12:08 AM
+			if(currentScreen != null){
+				currentScreen.unloadScreen();
+			}
+			currentScreen = screen;
+			currentScreen.loadScreen();
 		}
-		currentScreen = screen;
-		currentScreen.loadScreen();
 		if(alert == null){
 			display.setCurrent(currentScreen.getScreen());
 		}else{
 			display.setCurrent(alert, currentScreen.getScreen());
 		}
-	}
-
-	public void showAlert(final Alert alert){
-		display.setCurrent(alert);
 	}
 
 	/**

@@ -79,18 +79,21 @@ public final class FormAddNewFillUp extends AbstractFuelOMeterScreen {
 		if(command == FuelOMeterManager.CMD_MAIN_MENU){
 			midlet.setDisplay(midlet.scrMainMenu, null);
 		}else if(command == CMD_SAVE){ // NOPMD by Sounak Ray on 8/22/09 2:49 PM
-			final FillUp fillUp =
+			final FillUp newFillUp =
 				new FillUp(dtfFillupDate.getDate(), txtOdometer.getString(), txtVolume.getString(), txtRate.getString());
-			final String errors = FuelOMeterManager.INSTANCE.validateNewFillUp(fillUp);
+			final String errors = FuelOMeterManager.INSTANCE.validateNewFillUp(newFillUp);
 			if(errors == null){
+				final String msg = FuelOMeterManager.INSTANCE.saveRecord(newFillUp);
+				final boolean isSaved = !msg.startsWith("ERR");
 				final Alert alert =
-					(FuelOMeterManager.INSTANCE.saveRecord(dtfFillupDate.getDate(), txtOdometer.getString(), txtVolume
-						.getString(), txtRate.getString())) ? new Alert("Saved", "Fill-up data saved successfully!",
-						null, AlertType.CONFIRMATION) : new Alert("Error!!!",
-						"Fill-up data could not be saved successfully!", null, AlertType.ERROR);
+					new Alert(isSaved ? "Data Saved!" : "Save Unsuccessful!", msg, null,
+						isSaved ? AlertType.CONFIRMATION : AlertType.ERROR);
+				alert.setTimeout(Alert.FOREVER);
 				midlet.setDisplay(midlet.scrMainMenu, alert);
 			}else{
-				midlet.showAlert(new Alert("Invalid entries!", errors, null, AlertType.ERROR));
+				final Alert alert = new Alert("Invalid entry(s)!", errors, null, AlertType.ERROR);
+				alert.setTimeout(Alert.FOREVER);
+				midlet.setDisplay(midlet.scrAddRec, alert);
 			}
 		}
 	}
