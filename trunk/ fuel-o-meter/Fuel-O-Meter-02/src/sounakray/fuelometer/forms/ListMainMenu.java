@@ -8,8 +8,11 @@
  */
 package sounakray.fuelometer.forms;
 
+import javax.microedition.lcdui.Alert;
+import javax.microedition.lcdui.AlertType;
 import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.List;
+import sounakray.fuelometer.manager.FuelOMeterManager;
 import sounakray.fuelometer.midlet.FuelOMeter;
 
 /**
@@ -18,6 +21,7 @@ import sounakray.fuelometer.midlet.FuelOMeter;
 public final class ListMainMenu extends AbstractFuelOMeterScreen {
 	// TODO: Make Singleton!
 	private transient final Command cmdExit = new Command("Exit", Command.EXIT, 0);
+	private static final String INADEQUATE_DATA = "Not enough data!";
 
 	public ListMainMenu(final FuelOMeter midlet) {
 		super(new List("Main Menu: ", List.IMPLICIT), midlet);
@@ -55,24 +59,40 @@ public final class ListMainMenu extends AbstractFuelOMeterScreen {
 	public void executeCommand(final Command command){
 		// TODO shift all references to all the screens to this class as this
 		// controls navigation to all the screens.
+		final FuelOMeterManager manager = FuelOMeterManager.INSTANCE;
 		if(command == List.SELECT_COMMAND){
 			switch (((List) screen).getSelectedIndex()) {
-			case 0:
+			case 0: // New Fill Up
 				midlet.setDisplay(midlet.scrAddRec, null);
 				break;
-			case 1:
-				midlet.setDisplay(midlet.scrViewData, null);
+			case 1: // View All Data
+				if(manager.getRecordsCount() < 1){
+					midlet.setDisplay(midlet.scrMainMenu, new Alert(INADEQUATE_DATA, "No record has been added yet.",
+						null, AlertType.ERROR));
+				}else{
+					midlet.setDisplay(midlet.scrViewData, null);
+				}
 				break;
-			case 2:
-				midlet.setDisplay(midlet.scrViewStats, null);
+			case 2: // View Statistics
+				if(manager.getRecordsCount() < 2){
+					midlet.setDisplay(midlet.scrMainMenu, new Alert(INADEQUATE_DATA,
+						"At least two fill-up records are required to calculate statistics.", null, AlertType.ERROR));
+				}else{
+					midlet.setDisplay(midlet.scrViewStats, null);
+				}
 				break;
-			case 3:
-				midlet.setDisplay(midlet.scrGraph, null);
+			case 3: // View Graph
+				if(manager.getRecordsCount() < 3){
+					midlet.setDisplay(midlet.scrMainMenu, new Alert(INADEQUATE_DATA,
+						"At least three fill-up records are required to plot a graph.", null, AlertType.ERROR));
+				}else{
+					midlet.setDisplay(midlet.scrGraph, null);
+				}
 				break;
-			case 4:
+			case 4: // Setup
 				midlet.setDisplay(midlet.scrSetup, null);
 				break;
-			case 5:
+			case 5: // About
 				midlet.setDisplay(midlet.scrAbout, null);
 				break;
 			default:
