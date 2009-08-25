@@ -10,8 +10,12 @@ package sounakray.fuelometer.forms;
 
 import javax.microedition.lcdui.Alert;
 import javax.microedition.lcdui.AlertType;
+import javax.microedition.lcdui.Choice;
 import javax.microedition.lcdui.Command;
+import javax.microedition.lcdui.Font;
+import javax.microedition.lcdui.Image;
 import javax.microedition.lcdui.List;
+import javax.microedition.lcdui.Ticker;
 import sounakray.fuelometer.manager.FuelOMeterManager;
 import sounakray.fuelometer.midlet.FuelOMeter;
 
@@ -34,13 +38,25 @@ public final class ListMainMenu extends AbstractFuelOMeterScreen {
 	 * @author Sounak Ray
 	 */
 	public void loadScreen(){
+		Image img = null;
+		// try{
+		// img = Image.createImage("images/gas-pump.png");
+		// }catch(IOException e){
+		// e.printStackTrace();
+		// }
+		final Font font = Font.getFont(Font.FACE_MONOSPACE, Font.STYLE_PLAIN, Font.SIZE_LARGE);
 		final List lstMainMenu = (List) screen;
-		lstMainMenu.append("1. New Fill-up", null);
-		lstMainMenu.append("2. Show Data", null);
-		lstMainMenu.append("3. Statistics", null);
-		lstMainMenu.append("4. Graph", null);
-		lstMainMenu.append("5. Setup", null);
-		lstMainMenu.append("6. About", null);
+		lstMainMenu.setFont(lstMainMenu.append("1. New Fill-up", img), font);
+		lstMainMenu.setFont(lstMainMenu.append("2. Show Data", img), font);
+		lstMainMenu.setFont(lstMainMenu.append("3. Statistics", img), font);
+		lstMainMenu.setFont(lstMainMenu.append("4. Graph", img), font);
+		lstMainMenu.setFont(lstMainMenu.append("5. Setup", img), font);
+		lstMainMenu.setFont(lstMainMenu.append("6. About", img), font);
+		lstMainMenu.setFitPolicy(Choice.TEXT_WRAP_ON);
+		final String nextFillup = FuelOMeterManager.INSTANCE.getNextFillUpEstimate();
+		if(!"00000.0".equals(nextFillup)){
+			lstMainMenu.setTicker(new Ticker("Fuel is estimated to last till: " + nextFillup));
+		}
 	}
 
 	/*
