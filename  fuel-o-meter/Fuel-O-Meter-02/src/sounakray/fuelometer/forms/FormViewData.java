@@ -8,6 +8,7 @@
  */
 package sounakray.fuelometer.forms;
 
+import javax.microedition.lcdui.Choice;
 import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.List;
 import sounakray.fuelometer.manager.FuelOMeterManager;
@@ -32,10 +33,11 @@ public class FormViewData extends AbstractFuelOMeterScreen {
 	 * @author Sounak Ray
 	 */
 	public void loadScreen(){
-		final List lstMainMenu = (List) screen;
+		final List lstAllRecords = (List) screen;
 		final FillUp[] allRecords = midlet.manager.getAllRecords();
+		lstAllRecords.setFitPolicy(Choice.TEXT_WRAP_ON);
 		for(int i = 0; i < allRecords.length; i++){
-			lstMainMenu.append(allRecords[i].toString(), null);
+			lstAllRecords.append(allRecords[i].toString(), null);
 		}
 	}
 
