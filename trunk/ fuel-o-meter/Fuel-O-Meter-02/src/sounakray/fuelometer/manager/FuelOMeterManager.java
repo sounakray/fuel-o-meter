@@ -146,12 +146,10 @@ public final class FuelOMeterManager {
 				totalFuel = MathFP.add(totalFuel, prevRec.getVolume());
 				totalCost = MathFP.add(totalCost, MathFP.mul(prevRec.getVolume(), prevRec.getUnitPrice()));
 				mileageHistory[i] =
-					MathFP.toInt(MathFP.div(MathFP.sub(record.getOdometer(), prevRec.getOdometer()), prevRec
-						.getVolume()));
+					MathFP.div(MathFP.sub(record.getOdometer(), prevRec.getOdometer()), prevRec.getVolume());
 			}
 			mileageHistory[0] =
-				MathFP.toInt(MathFP.div(MathFP.sub(records[numRecs - 1].getOdometer(), records[0].getOdometer()),
-					totalFuel));
+				MathFP.div(MathFP.sub(records[numRecs - 1].getOdometer(), records[0].getOdometer()), totalFuel);
 		}
 		return mileageHistory;
 	}

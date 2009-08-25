@@ -11,6 +11,7 @@ import javax.microedition.lcdui.Canvas;
 import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Graphics;
+import net.jscience.util.MathFP;
 import sounakray.fuelometer.manager.FuelOMeterManager;
 import sounakray.fuelometer.midlet.FuelOMeter;
 
@@ -43,7 +44,6 @@ public class GraphCanvas extends AbstractFuelOMeterScreen {
 			 * @author Sounak Ray
 			 */
 			protected void paint(Graphics g){
-				System.out.println("Paint: " + System.currentTimeMillis());
 				setTitle("Graph");
 
 				g.setColor(255, 255, 255);
@@ -66,10 +66,10 @@ public class GraphCanvas extends AbstractFuelOMeterScreen {
 					final int x = width / (len - 1);
 					final int y;// = (max - min) == 0 ? height / 2 : height / (max - min);
 					if(min == max){
-						y = height / 2;
+						y = MathFP.div(MathFP.toFP(height), MathFP.toFP(2));
 						max = max + 1;
 					}else{
-						y = height / (max - min);
+						y = MathFP.div(MathFP.toFP(height), (MathFP.sub(max, min)));
 					}
 
 					g.setFont(Font.getFont(Font.FACE_PROPORTIONAL, Font.STYLE_PLAIN, Font.SIZE_SMALL));
@@ -77,15 +77,15 @@ public class GraphCanvas extends AbstractFuelOMeterScreen {
 					int x1 = MARGIN - x, x2, y1, y2;
 					for(int i = minIndex + 1; i < mileageHistory.length; i++){
 						x1 += x;
-						y1 = (MARGIN + y * (max - mileageHistory[i - 1]));
+						y1 = (MARGIN + MathFP.toInt(MathFP.mul(y, MathFP.sub(max, mileageHistory[i - 1]))));
 						x2 = x1 + x;
-						y2 = (MARGIN + y * (max - mileageHistory[i]));
+						y2 = (MARGIN + MathFP.toInt(MathFP.mul(y, MathFP.sub(max, mileageHistory[i]))));
 						g.setColor(180, 180, 180);
 						g.setStrokeStyle(Graphics.DOTTED);
 						g.drawLine(x1, MARGIN, x1, MARGIN + height);
 
 						g.setColor(0, 0, 0);
-						g.drawString(String.valueOf(mileageHistory[i - 1]), x1 + DOT_RADIUS, y1, Graphics.TOP
+						g.drawString(MathFP.toString((mileageHistory[i - 1]), 2), x1 + DOT_RADIUS, y1, Graphics.TOP
 								| Graphics.LEFT);
 
 						g.setColor(0, 0, 255);
@@ -102,10 +102,10 @@ public class GraphCanvas extends AbstractFuelOMeterScreen {
 					g.setFont(Font.getFont(Font.FACE_SYSTEM, Font.STYLE_ITALIC, Font.SIZE_MEDIUM));
 					g.setColor(0, 0, 0);
 					g.setStrokeStyle(Graphics.DOTTED);
-					g.drawLine(MARGIN / 2, (MARGIN + y * (max - avgMileage)), (MARGIN * 3 / 2 + width), (MARGIN + y
-							* (max - avgMileage)));
-					g.drawString("Avg:" + avgMileage, 0, (MARGIN + y * (max - avgMileage)), Graphics.TOP
-							| Graphics.LEFT);
+					g.drawLine(MARGIN / 2, (MARGIN + MathFP.toInt(MathFP.mul(y, MathFP.sub(max, avgMileage)))),
+						(MARGIN * 3 / 2 + width), (MARGIN + MathFP.toInt(MathFP.mul(y, MathFP.sub(max, avgMileage)))));
+					g.drawString("Avg:" + MathFP.toString(avgMileage, 2), 0, (MARGIN + MathFP.toInt(MathFP.mul(y,
+						MathFP.sub(max, avgMileage)))), Graphics.BASELINE | Graphics.LEFT);
 
 					// Last Mileage
 					g.setFont(Font.getFont(Font.FACE_PROPORTIONAL, Font.STYLE_BOLD, Font.SIZE_MEDIUM));
@@ -114,10 +114,12 @@ public class GraphCanvas extends AbstractFuelOMeterScreen {
 					}else{
 						g.setColor(0, 255, 0);
 					}
-					g.drawString(String.valueOf(mileageHistory[mileageHistory.length - 1]), x1 - DOT_RADIUS,
-						(MARGIN + y * (max - mileageHistory[mileageHistory.length - 1])), Graphics.TOP
+					g.drawString(MathFP.toString((mileageHistory[mileageHistory.length - 1]), 2), x1 - DOT_RADIUS,
+						(MARGIN + MathFP.toInt(MathFP
+							.mul(y, MathFP.sub(max, mileageHistory[mileageHistory.length - 1])))), Graphics.TOP
 								| Graphics.HCENTER);
-					g.fillArc(x1 - DOT_RADIUS, (MARGIN + y * (max - mileageHistory[mileageHistory.length - 1]))
+					g.fillArc(x1 - DOT_RADIUS, (MARGIN + MathFP.toInt(MathFP.mul(y, MathFP.sub(max,
+						mileageHistory[mileageHistory.length - 1]))))
 							- DOT_RADIUS, DOT_DIAMTR, DOT_DIAMTR, 0, 360);
 				}
 			}

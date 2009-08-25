@@ -30,7 +30,7 @@ public class FormSetup extends AbstractFuelOMeterScreen {
 	 */
 	public void loadScreen(){
 		final Form form = (Form) screen;
-		final Command cmdResetData = new Command("Reset", "Reset Data", Command.OK, 0);
+		final Command cmdResetData = new Command("Reset", "Reset Data", Command.SCREEN, 1);
 		form.addCommand(cmdResetData);
 		form.append(new ChoiceGroup("Select Unit", ChoiceGroup.EXCLUSIVE, new String[] { "Kms/Ltr", "Miles/Gallon" },
 			null));
