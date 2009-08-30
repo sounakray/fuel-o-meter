@@ -23,7 +23,7 @@ import sounakray.fuelometer.model.FillUp;
  * @since Aug 16, 2009
  */
 public final class CachedRecordStoreDAOImpl implements FuelOMeterDAO {
-	private static final String RECORDSET_NAME = "RecordSet_FuelOMeter";
+	private static final String RECSTORE_FILLUPS = "RS_FillUps";
 	private static FillUp[] allRecords = null;
 
 	/*
@@ -36,7 +36,7 @@ public final class CachedRecordStoreDAOImpl implements FuelOMeterDAO {
 			int index = 0;
 			RecordStore recordStore = null;
 			try{
-				recordStore = RecordStore.openRecordStore(RECORDSET_NAME, true);
+				recordStore = RecordStore.openRecordStore(RECSTORE_FILLUPS, true);
 				final RecordEnumeration recordsEnum = recordStore.enumerateRecords(null, new RecordComparator() {
 					public int compare(final byte[] rec1, final byte[] rec2){
 						final int result = new String(rec1).compareTo(new String(rec2));
@@ -73,7 +73,7 @@ public final class CachedRecordStoreDAOImpl implements FuelOMeterDAO {
 		final byte[] record = fillUp.toByteArray();
 		RecordStore recordsStore = null;
 		try{
-			recordsStore = RecordStore.openRecordStore(RECORDSET_NAME, true);
+			recordsStore = RecordStore.openRecordStore(RECSTORE_FILLUPS, true);
 			recordsStore.addRecord(record, 0, record.length);
 		}catch(RecordStoreException e){
 			isSuccessful = false;
@@ -86,6 +86,21 @@ public final class CachedRecordStoreDAOImpl implements FuelOMeterDAO {
 					isSuccessful = false;
 				}
 			}
+		}
+		return isSuccessful;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see sounakray.fuelometer.dao.FuelOMeterDAO#resetAllData()
+	 * @author Sounak Ray
+	 */
+	public boolean resetAllData(){
+		boolean isSuccessful = true;
+		try{
+			RecordStore.deleteRecordStore(RECSTORE_FILLUPS);
+		}catch(RecordStoreException e){
+			isSuccessful = false;
 		}
 		return isSuccessful;
 	}

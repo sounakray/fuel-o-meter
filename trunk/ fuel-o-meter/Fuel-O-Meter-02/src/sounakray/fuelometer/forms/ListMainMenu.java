@@ -38,7 +38,7 @@ public final class ListMainMenu extends AbstractFuelOMeterScreen {
 	 * @author Sounak Ray
 	 */
 	public void loadScreen(){
-		Image img = null;
+		final Image img = null;
 		// try{
 		// img = Image.createImage("images/gas-pump.png");
 		// }catch(IOException e){

@@ -34,4 +34,14 @@ public interface FuelOMeterDAO {
 	 * @since Aug 16, 2009
 	 */
 	FillUp[] getAllFillUpList();
+
+	/**
+	 * Method Description: This method should delete all the data AND settings in the application, and bring it to the
+	 * state when it was first installed. <br>
+	 * This includes deleting all the fill-up records and application settings/configurations.
+	 * @return
+	 * @author Sounak Ray
+	 * @since Aug 26, 2009
+	 */
+	boolean resetAllData();
 }
