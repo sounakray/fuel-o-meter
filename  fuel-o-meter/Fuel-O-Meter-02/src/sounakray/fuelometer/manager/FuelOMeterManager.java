@@ -249,4 +249,8 @@ public final class FuelOMeterManager {
 	public int calculateSingleMileage(final FillUp fillUp1, final FillUp fillUp2){
 		return MathFP.div(MathFP.sub(fillUp2.getOdometer(), fillUp1.getOdometer()), fillUp1.getVolume());
 	}
+
+	public void resetApp(){
+		DAO.resetAllData();
+	}
 }
